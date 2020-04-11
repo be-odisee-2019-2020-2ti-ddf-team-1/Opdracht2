@@ -14,7 +14,7 @@ public class Evaluatiefiche {
     // zie ook https://stackoverflow.com/questions/49813666/table-dbname-hibernate-sequence-doesnt-exist
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
-
+    //test
 
     @Column
     private String beoordeling;
