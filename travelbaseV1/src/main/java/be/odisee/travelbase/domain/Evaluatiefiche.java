@@ -3,7 +3,7 @@ package be.odisee.travelbase.domain;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
+// comment van AA
 //COmment van Ralph
 //Comment van thomasBranch
 
