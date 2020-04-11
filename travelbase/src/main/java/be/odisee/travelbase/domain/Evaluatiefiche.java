@@ -3,6 +3,7 @@ package be.odisee.travelbase.domain;
 import java.io.Serializable;
 import javax.persistence.*;
 
+//
 @Entity
 @Table(name="evaluatiefiches")
 public class Evaluatiefiche {
