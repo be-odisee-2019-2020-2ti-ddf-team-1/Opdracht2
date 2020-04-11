@@ -5,6 +5,8 @@ import javax.persistence.*;
 
 
 //COmment van Ralph
+//Comment van thomasBranch
+
 @Entity
 @Table(name="evaluatiefiches")
 public class Evaluatiefiche {
