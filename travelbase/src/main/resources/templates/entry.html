@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th = "http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>TravelBase</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <script>
+        function rowClicked(value) {
+            location.href = "/travelbase/edit" + value
+        }
+    </script>
+</head>
+<body>
+<h1>Welcome to TravelBase</h1>
+<img th:src="@{/images/logo.jpg}" style="float: right"/>
+
+<form method="POST" th:action="@{/travelbase}" th:object="${entryData}">
+
+    <input type="hidden" th:field="*{id}" />
+
+    <div class="well">
+
+        <span th:each = "activiteit : ${activiteitenWithEvaluatiefiches}" class="activiteit" >
+            <label th:text="${activiteit.getKey()}">thelabel</label> <br/>
+            <select th:field = "*{evaluatieficheIds}">
+                <option value="0"> No choice </option>
+                <option th:each = "evaluatiefiche : ${activiteit.getValue()}"
+                        th:value = "${evaluatiefiche.id}"
+                        th:text = "${evaluatiefiche.naam}">
+                </option>
+            </select>&nbsp;
+        </span>
+    </div>
+    <div class="form-group">
+        <label>Date:&nbsp;</label><input type="date" th:field="*{dateTime}"/> &nbsp;
+        <span class="validationError"
+              th:if="#{fields.hasErrors('dateTime')}"
+              th:errors="*{dateTime}">dateTimeError
+        </span>
+    </div>
+    <div class="form-group">
+        <label>Feedback:&nbsp;</label><input type="text" th:field="*{feedback}" style="width: 40em" />
+        <span class="validationError"
+              th:if="#{fields.hasErrors('feedback')}"
+              th:errors="*{feedback}">feedbackError
+        </span>
+        <label>Oordeel:&nbsp;</label><input type="text" th:field="*{oordeel}" style="width: 40em" />
+        <span class="validationError"
+              th:if="#{fields.hasErrors('oordeel')}"
+              th:errors="*{oordeel}">oordeelError
+        </span>
+        <label>Beoordeling:&nbsp;</label><input type="text" th:field="*{beoordeling}" style="width: 40em" />
+        <span class="validationError"
+              th:if="#{fields.hasErrors('beoordeling')}"
+              th:errors="*{beoordeling}">beoordelingError
+        </span>
+    </div>
+    <div th:if="${entryData.getId()}==0" class="form-group">
+        <button class="btn btn-primary btn-md" name="submit">Create entry</button>
+    </div>
+    <div th:if="${entryData.getId()}!=0" class="form-group">
+        <button class="btn btn-primary btn-md" name="submit">Update entry</button>
+        <button class="btn btn-danger btn-md" name="delete">Delete entry</button>
+        <button class="btn btn-warning btn-md" name="cancel">Cancel</button>
+    </div>
+</form>
+
+<div th:if="${message}!=null" class="well" th:text="${message}">
+    blablabla
+</div>
+<div class="table-striped well" >
+    <div th:each="entry: ${entries}" class="row"
+         th:onclick="'window.location.href = \'' + @{/travelbase/edit?id={id} (id=${entry.getId()}) } + '\''"  >
+      <!-- <div class="col-md-1 text-left"
+            th:text="${#temporals.format(entry.getDateTime(), 'dd-MM-yyyy')}"> Date
+        </div>-->
+        <!--<div class="col-md-1 text-left" th:text="${entry.getEvaluatiefiche().getActiviteit().getNaam()}"> activiteit </div>
+        <div class="col-md-1 text-left" th:text="${entry.getEvaluatiefiche().getNaam()}"> evaluatiefiche </div>
+        <div class="col-md-5 text-left" th:text="${entry.getFeedback()}"> feedback </div>
+        <div class="col-md-5 text-left" th:text="${entry.getOordeel()}"> oordeel </div>-->
+        <div class="col-md-5 text-left" th:text="${entry.getBeoordeling()}"> beoordeling </div>
+
+</div>
+</div>
+</body>
+</html>

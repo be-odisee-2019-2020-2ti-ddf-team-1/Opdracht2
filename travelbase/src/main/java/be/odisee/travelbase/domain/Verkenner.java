@@ -8,18 +8,17 @@ import lombok.RequiredArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "EVALUATIEFICHES")
+@Table(name = "VERKENNERS")
 @Data
-@RequiredArgsConstructor // generates constructor with required arguments - final fields and @NonNull-fields
+@RequiredArgsConstructor
 @NoArgsConstructor(access= AccessLevel.PRIVATE,force=true)
-public class Evaluatiefiche {
+public class Verkenner {
 
     @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private final long id;
 
-    private final String naam;
-
-    @ManyToOne
-    private final Activiteit activiteit;
+    private String naam;
+    private String userid;
+    private String password;
 }
-
