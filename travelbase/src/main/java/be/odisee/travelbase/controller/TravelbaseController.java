@@ -10,6 +10,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -41,8 +42,9 @@ public class TravelbaseController {
 
         model.addAttribute("activiteitenWithEvaluatiefiches", travelbaseService.getActiviteitenWithEvaluatiefiches());
         model.addAttribute("entryData", entryData);
-        //ocalDate theDatum = LocalDate.parse(entryData.getDateTime());
-        //model.addAttribute("entries", travelbaseService.getEntriesFromDate(theDatum) );
+        model.addAttribute("entries", travelbaseService.getEntries());
+        //LocalDate theDatum = LocalDate.parse(entryData.getDateTime());
+        //model.addAttribute("entries", travelbaseService.get(theDatum) );
     }
 
     /**
@@ -76,6 +78,44 @@ public class TravelbaseController {
         return "entry";
     }
 
+    /**
+     * Prepare form for update or delete
+     * @param id - the id of the entry to be updated or deleted
+     * @param model
+     * @return
+     */
+    @GetMapping("/edit")
+    public String entryEditForm(@RequestParam("id") long id, Model model) {
+
+        EntryData entryData = travelbaseService.prepareEntryDataToEdit(id);
+        prepareForm(entryData, model);
+        model.addAttribute("message", "Update or Delete this entry please - or Cancel");
+        return "entry";
+    }
+
+    /**
+     * Delete the entry and prepare for creation of a new one
+     * @return
+     */
+    @PostMapping(params = "delete")
+    public String deleteEntry(EntryData entrydata, Model model) {
+
+        travelbaseService.deleteEntry(entrydata.getId());
+        EntryData entryData = travelbaseService.prepareNewEntryData();
+        prepareForm(entryData, model);
+        model.addAttribute("message", "Successfully deleted entry "+entrydata.getFeedback());
+        return "entry";
+    }
+
+    /**
+     * If user does not want to update or delete, he will be redirect to create
+     * @return
+     */
+    @PostMapping(params = "cancel")
+    public String redirectToCreate() {
+
+        return "redirect:/travelbase";
+    }
 
 }
 

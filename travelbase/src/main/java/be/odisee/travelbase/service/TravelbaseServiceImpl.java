@@ -40,6 +40,8 @@ public class TravelbaseServiceImpl implements TravelbaseService {
         return (List<Evaluatiefiche>) evaluatieficheRepository.findAllByOrderByNaam();
     }
 
+
+
     /**
      * Creates a map with categories as keys
      * and lists of projects belonging to that category
@@ -72,6 +74,12 @@ public class TravelbaseServiceImpl implements TravelbaseService {
                 .stream()
                 .filter(x -> x.getActiviteit().getNaam().equals(activiteit))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Entry> getEntries() {
+
+        return (List<Entry>) entryRepository.findAll();
     }
 
     /**

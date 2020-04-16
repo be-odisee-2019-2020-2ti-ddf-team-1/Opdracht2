@@ -14,6 +14,8 @@ public interface TravelbaseService {
 
     public Map<String, List<Evaluatiefiche>> getActiviteitenWithEvaluatiefiches();
 
+    public Object getEntries();
+
     public EntryData prepareNewEntryData();
 
     public String processEntry(@Valid EntryData entryData);
