@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>TravelBase</title>
+    <title>Entry - TravelBase</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/styles.css}"/>
     <script>
@@ -13,14 +13,75 @@
     </script>
 </head>
 <body>
-<h1>Welcome to TravelBase</h1>
-<img th:src="@{/images/logo.jpg}" style="width:600px"/>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Travelbase</a>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="#">Home</a>
+            <a class="nav-item nav-link active" href="#">Entry</a>
+        </div>
+    </div>
+</nav>
 
+<form method="POST" th:action="@{/travelbase}" th:object="${entryData}">
+    <div class="form-group" th:each="activiteit : ${activiteitenWithEvaluatiefiches}">
+        <label for="exampleFormControlSelect1" th:text="${activiteit.getKey()}"></label>
+        <select class="form-control" id="exampleFormControlSelect1" th:field="*{evaluatieficheIds}">
+            <option value="0"> No choice </option>
+            <option th:each="evaluatiefiche : ${activiteit.getValue()}"
+                    th:value="${evaluatiefiche.id}"
+                    th:text="${evaluatiefiche.naam}">
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Date: </label>
+        <input class="form-control" type="date" th:field="*{dateTime}"/>
+        <span class="validationError" th:if="#{fields.hasErrors('dateTime')}" th:errors="*{dateTime}">dateTimeError</span>
+    </div>
+    <div class="form-group">
+        <label>Feedback: </label>
+        <textarea class="form-control" rows="3" th:field="*{feedback}"></textarea>
+        <span class="validationError" th:if="#{fields.hasErrors('feedback')}" th:errors="*{feedback}">feedbackError</span>
+    </div>
+    <div class="form-group">
+        <label>Oordeel: </label>
+        <textarea class="form-control" rows="3" th:field="*{oordeel}"></textarea>
+        <span class="validationError" th:if="#{fields.hasErrors('oordeel')}" th:errors="*{oordeel}">oordeelkError</span>
+    </div>
+    <div class="form-group">
+        <label>Beoordeling: </label>
+        <textarea class="form-control" rows="3" th:field="*{beoordeling}"></textarea>
+        <span class="validationError" th:if="#{fields.hasErrors('beoordeling')}" th:errors="*{beoordeling}">beoordelingError</span>
+    </div>
+
+    <div th:if="${entryData.getId()}==0" class="form-group">
+        <button class="btn btn-primary btn-md" name="submit">Create entry</button>
+    </div>
+    <div th:if="${entryData.getId()}!=0" class="form-group">
+        <button class="btn btn-primary btn-md" name="submit">Update entry</button>
+        <button class="btn btn-danger btn-md" name="delete">Delete entry</button>
+        <button class="btn btn-warning btn-md" name="cancel">Cancel</button>
+    </div>
+</form>
+
+<div th:if="${message}!=null" class="well" th:text="${message}">
+    blablabla
+</div>
+
+
+
+
+
+
+
+
+<!--
 <form method="POST" th:action="@{/travelbase}" th:object="${entryData}">
 
     <input type="hidden" th:field="*{id}"/>
 
-    <div class="well">
+    <!--<div class="well">
 
         <span th:each="activiteit : ${activiteitenWithEvaluatiefiches}" class="activiteit">
             <label th:text="${activiteit.getKey()}">thelabel</label> <br/>
@@ -34,7 +95,7 @@
         </span>
     </div>
     <div class="form-group">
-        <label>Date:&nbsp;</label><input type="date" th:field="*{dateTime}"/> &nbsp;
+        <label>Date: </label><input type="date" th:field="*{dateTime}"/> &nbsp;
         <span class="validationError"
               th:if="#{fields.hasErrors('dateTime')}"
               th:errors="*{dateTime}">dateTimeError
@@ -43,8 +104,8 @@
     <div class="form-group">
         <label>Feedback:&nbsp;</label><input type="text" th:field="*{feedback}" style="width: 40em"/>
         <span class="validationError"
-              th:if="#{fields.hasErrors('feedback')}"
-              th:errors="*{feedback}">feedbackError
+                     th:if="#{fields.hasErrors('feedback')}"
+                     th:errors="*{feedback}">feedbackError
         </span>
         <label>Oordeel:&nbsp;</label><input type="text" th:field="*{oordeel}" style="width: 40em"/>
         <span class="validationError"
