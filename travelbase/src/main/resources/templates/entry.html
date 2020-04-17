@@ -25,7 +25,17 @@
     </div>
 </nav>
 
+<!--
+<div class="jumbotron jumbotron-fluid">
+    <div class="container-fluid">
+        <h1> Verslag schrijven</h1>
+    </div>
+</div>
+-->
+
+<div class="afbd">
 <form method="POST" th:action="@{/travelbase}" th:object="${entryData}">
+    <h1>Formulier verslag </h1>
     <div class="form-group" th:each="activiteit : ${activiteitenWithEvaluatiefiches}">
         <label for="exampleFormControlSelect1" th:text="${activiteit.getKey()}"></label>
         <select class="form-control" id="exampleFormControlSelect1" th:field="*{evaluatieficheIds}">
@@ -66,11 +76,12 @@
         <button class="btn btn-warning btn-md" name="cancel">Cancel</button>
     </div>
 </form>
+</div>
+
 
 <div th:if="${message}!=null" class="well" th:text="${message}">
     blablabla
 </div>
-
 
 
 
