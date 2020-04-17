@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th = "http://www.thymeleaf.org" >
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Travelbase</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
 </head>
-<body>
-<h1>Welcome to Travelbase</h1>
+<body id="rand">
+<div class="jumbotron banner">
+    <div class="container">
+        <h1>Welkom</h1>
+        <p>
+            <a class="btn btn-primary btn-lg"> Ga naar Entries</a>
+        </p>
+    </div>
+</div>
+
+<!-- afbeelding is als achtergrond aan css toegevoegd.
 <img th:src="@{/images/logo.jpg}" />
+-->
 </body>
 </html>
