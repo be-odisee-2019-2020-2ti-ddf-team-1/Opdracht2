@@ -48,7 +48,7 @@ div.table-striped > div:nth-of-type(odd) {
 
 
 .banner {
-    background: url("/images/logo.jpg");
+    background: url("/images/bannerTB.jpg");
     position: relative;
     height: 79.75rem;
     padding: 0 25%;
@@ -61,6 +61,23 @@ div.table-striped > div:nth-of-type(odd) {
     margin: 0px;
 }
 
-.container h1, p {
-    padding: 3em;
+.container h1 {
+    padding-top: 1em;
+}
+
+.container p {
+    padding: 1em;
+}
+
+.navbar-default {
+    background-color: white;
+    border-color: white;
+}
+
+.container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    background: #ffa500a6;
 }
