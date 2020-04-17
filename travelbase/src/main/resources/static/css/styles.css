@@ -41,3 +41,7 @@ div.table-striped > div:nth-of-type(odd) {
     background-color: white;
 }
 
+.jumbotron {
+    /*background-image: url("/images/logo.jpg");*/
+
+}
