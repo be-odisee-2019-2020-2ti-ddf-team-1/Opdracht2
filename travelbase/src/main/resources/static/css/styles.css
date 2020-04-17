@@ -41,7 +41,26 @@ div.table-striped > div:nth-of-type(odd) {
     background-color: white;
 }
 
-.jumbotron {
-    /*background-image: url("/images/logo.jpg");*/
+.btn-primary {
+    background-color: #FF9800;
+    border-color: #FF9800;
+}
 
+
+.banner {
+    background: url("/images/logo.jpg");
+    position: relative;
+    height: 79.75rem;
+    padding: 0 25%;
+    background-size: cover;
+    text-align: center;
+    color: white;
+}
+
+#rand {
+    margin: 0px;
+}
+
+.container h1, p {
+    padding: 3em;
 }

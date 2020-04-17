@@ -3,22 +3,22 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home - TravelBase</title>
+    <title>Travelbase</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/styles.css}"/>
 </head>
-<body>
-<!--
-<h1>Welcome to Travelbase</h1>
+<body id="rand">
+<div class="jumbotron banner">
+    <div class="container">
+        <h1>Welkom</h1>
+        <p>
+            <a class="btn btn-primary btn-lg"> Ga naar Entries</a>
+        </p>
+    </div>
+</div>
+
+<!-- afbeelding is als achtergrond aan css toegevoegd.
 <img th:src="@{/images/logo.jpg}" />
 -->
-
-<img class="jumbotron" th:src="@{/images/logo.jpg}">
-    <h1 class="display-4">Welcome to Travelbase</h1>
-    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-</img>
 </body>
 </html>
