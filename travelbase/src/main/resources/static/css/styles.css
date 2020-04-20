@@ -33,7 +33,6 @@ span.category {
 }
 
 body {
-    margin: 1em;
     background-color: #f5f5f5;
 }
 
@@ -48,7 +47,7 @@ div.table-striped > div:nth-of-type(odd) {
 
 
 .banner {
-    background: url("/images/logo.jpg");
+    background: url("/images/bannerTB.jpg");
     position: relative;
     height: 79.75rem;
     padding: 0 25%;
@@ -61,6 +60,44 @@ div.table-striped > div:nth-of-type(odd) {
     margin: 0px;
 }
 
-.container h1, p {
-    padding: 3em;
+.container h1 {
+    padding-top: 1em;
+}
+
+.container p {
+    padding: 1em;
+}
+
+.navbar-default {
+    background-color: white;
+    border-color: white;
+}
+
+.container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+
+
+.afbd {
+    background: url("/images/bannerTB.jpg");
+    position: relative;
+    padding: 0 28%;
+    background-size: cover;
+    background-size: 133% 150%;
+}
+
+form {
+    text-align: left;
+}
+
+.form-control {
+    background-color: #ff9800a8;
+}
+
+form h1 {
+    padding: 1em 0;
 }
