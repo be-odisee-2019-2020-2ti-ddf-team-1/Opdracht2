@@ -19,6 +19,6 @@ public class Verkenner {
     private final long id;
 
     private String naam;
-    private String userid;
-    private String password;
+    private String gebruikersnaam;
+    private String wachtwoord;
 }

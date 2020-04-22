@@ -20,8 +20,9 @@ public interface TravelbaseService {
 
     public String processEntry(@Valid EntryData entryData);
 
-
     public EntryData prepareEntryDataToEdit(long id);
 
     public void deleteEntry(long id);
+
+    public String getAuthenticatedUsername();
 }

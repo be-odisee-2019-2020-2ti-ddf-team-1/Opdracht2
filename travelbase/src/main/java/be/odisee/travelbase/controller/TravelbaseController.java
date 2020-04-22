@@ -40,6 +40,7 @@ public class TravelbaseController {
      */
     private void prepareForm(EntryData entryData, Model model) {
 
+        model.addAttribute("gebruikersnaam", travelbaseService.getAuthenticatedUsername());
         model.addAttribute("activiteitenWithEvaluatiefiches", travelbaseService.getActiviteitenWithEvaluatiefiches());
         model.addAttribute("entryData", entryData);
         model.addAttribute("entries", travelbaseService.getEntries());
@@ -56,14 +57,14 @@ public class TravelbaseController {
         try {
             // Are there any input validation errors detected by JSR 380 bean validation?
             if (errors.hasErrors()) {
-                message = "Correct input errors, please";
+                message = "Correct input errors, aub";
                 throw new IllegalArgumentException();
             }
             // Check how many projects have been selected for this entry
             long numberNonzero = Arrays.stream(entryData.getEvaluatieficheIds()).filter(x -> x > 0).count();
             // There should have been one and only one project selected, if not throw an exception
             if (numberNonzero != 1) {
-                message = "Unacceptable, there must be 1 and only 1 project";
+                message = "Selecteer alleen een evaluatiefiche!";
                 throw new IllegalArgumentException();
             }
             // Now that the input seems to be OK, let's create a new entry or update/delete an existing entry
@@ -89,7 +90,7 @@ public class TravelbaseController {
 
         EntryData entryData = travelbaseService.prepareEntryDataToEdit(id);
         prepareForm(entryData, model);
-        model.addAttribute("message", "Update or Delete this entry please - or Cancel");
+        model.addAttribute("message", "Update of Verwijder deze entry - of Annuleer");
         return "entry";
     }
 
@@ -103,7 +104,7 @@ public class TravelbaseController {
         travelbaseService.deleteEntry(entrydata.getId());
         EntryData entryData = travelbaseService.prepareNewEntryData();
         prepareForm(entryData, model);
-        model.addAttribute("message", "Successfully deleted entry "+entrydata.getFeedback());
+        model.addAttribute("message", "Verwijderde entry geslaagd "+entrydata.getFeedback());
         return "entry";
     }
 

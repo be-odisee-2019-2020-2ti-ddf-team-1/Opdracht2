@@ -35,7 +35,7 @@
 
 <div class="afbd">
 <form method="POST" th:action="@{/travelbase}" th:object="${entryData}">
-    <h1>Formulier verslag </h1>
+    <h1>Formulier verslag ,<span th:text="${gebruikersnaam}"> gebruikersnaam </span></h1>
     <div class="form-group" th:each="activiteit : ${activiteitenWithEvaluatiefiches}">
         <label for="exampleFormControlSelect1" th:text="${activiteit.getKey()}"></label>
         <select class="form-control" id="exampleFormControlSelect1" th:field="*{evaluatieficheIds}">
@@ -68,12 +68,12 @@
     </div>
 
     <div th:if="${entryData.getId()}==0" class="form-group">
-        <button class="btn btn-primary btn-md" name="submit">Create entry</button>
+        <button class="btn btn-primary btn-md" name="submit">Creëer entry</button>
     </div>
     <div th:if="${entryData.getId()}!=0" class="form-group">
         <button class="btn btn-primary btn-md" name="submit">Update entry</button>
-        <button class="btn btn-danger btn-md" name="delete">Delete entry</button>
-        <button class="btn btn-warning btn-md" name="cancel">Cancel</button>
+        <button class="btn btn-danger btn-md" name="delete">Verwijder entry</button>
+        <button class="btn btn-warning btn-md" name="cancel">Annuleer</button>
     </div>
 </form>
 </div>

@@ -9,6 +9,8 @@ import be.odisee.travelbase.domain.Evaluatiefiche;
 import be.odisee.travelbase.formdata.EntryData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -184,5 +186,12 @@ public class TravelbaseServiceImpl implements TravelbaseService {
 
         Entry entry = entryRepository.findById(id);
         entryRepository.delete(entry);
+    }
+
+    @Override
+    public String getAuthenticatedUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        return currentPrincipalName;
     }
 }
