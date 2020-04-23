@@ -49,7 +49,7 @@ div.table-striped > div:nth-of-type(odd) {
 .banner {
     background: url("/images/bannerTB.jpg");
     position: relative;
-    height: 79.75rem;
+    height: 118rem;
     padding: 0 25%;
     background-size: cover;
     text-align: center;
@@ -100,4 +100,27 @@ form {
 
 form h1 {
     padding: 1em 0;
+}
+
+.activiteit {
+    padding: 2em 0;
+    display: flex;
+    width: 75%;
+}
+
+.activiteit label {
+    width: 16em;
+}
+
+
+.well {
+    background-color: #ff9800a8;
+}
+
+.zaza {
+    padding: 3em 0;
+}
+
+.bla {
+    width: 100%;
 }
