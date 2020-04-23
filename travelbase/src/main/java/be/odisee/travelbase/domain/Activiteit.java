@@ -17,5 +17,9 @@ public class Activiteit {
     private final long id;
 
     private final String naam;
+
+    // Each user has her own categories
+    @ManyToOne
+    private final Gebruiker gebruiker;
 }
 

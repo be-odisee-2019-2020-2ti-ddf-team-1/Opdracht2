@@ -22,5 +22,8 @@ public class Evaluatiefiche {
 
     @ManyToOne
     private final Activiteit activiteit;
+
+    @ManyToOne
+    private final Gebruiker gebruiker;
 }
 

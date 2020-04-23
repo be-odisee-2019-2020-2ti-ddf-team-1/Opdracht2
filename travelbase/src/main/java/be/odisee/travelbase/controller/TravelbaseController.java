@@ -32,6 +32,7 @@ public class TravelbaseController {
 
         EntryData entryData = travelbaseService.prepareNewEntryData();
         prepareForm(entryData, model);
+        model.addAttribute("message","Aub, creëer een evaluatiefiche entry");
         return "entry";
     }
 
@@ -40,10 +41,10 @@ public class TravelbaseController {
      */
     private void prepareForm(EntryData entryData, Model model) {
 
-        model.addAttribute("gebruikersnaam", travelbaseService.getAuthenticatedUsername());
+        model.addAttribute("naam", travelbaseService.getAuthenticatedFullname());
         model.addAttribute("activiteitenWithEvaluatiefiches", travelbaseService.getActiviteitenWithEvaluatiefiches());
         model.addAttribute("entryData", entryData);
-        model.addAttribute("entries", travelbaseService.getEntries());
+        model.addAttribute("entries",travelbaseService.getEntries());
         //LocalDate theDatum = LocalDate.parse(entryData.getDateTime());
         //model.addAttribute("entries", travelbaseService.get(theDatum) );
     }

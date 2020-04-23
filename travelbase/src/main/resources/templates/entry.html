@@ -32,10 +32,14 @@
     </div>
 </div>
 -->
+<form method="POST" th:action="@{/logout}" style="float: right">
+    <button class="btn btn-danger btn-md logout" name="logout"
+            value="Logout">Logout</button>
+</form>
 
 <div class="afbd">
 <form method="POST" th:action="@{/travelbase}" th:object="${entryData}">
-    <h1>Formulier verslag ,<span th:text="${gebruikersnaam}"> gebruikersnaam </span></h1>
+    <h1>Formulier verslag , <span th:text="${naam}"> naam </span></h1>
     <div class="form-group" th:each="activiteit : ${activiteitenWithEvaluatiefiches}">
         <label for="exampleFormControlSelect1" th:text="${activiteit.getKey()}"></label>
         <select class="form-control" id="exampleFormControlSelect1" th:field="*{evaluatieficheIds}">
@@ -94,7 +98,7 @@
 
     <input type="hidden" th:field="*{id}"/>
 
-    <!--<div class="well">
+    <div class="well">
 
         <span th:each="activiteit : ${activiteitenWithEvaluatiefiches}" class="activiteit">
             <label th:text="${activiteit.getKey()}">thelabel</label> <br/>
@@ -145,7 +149,7 @@
     blablabla
 </div>
 
-<!--<div class="table-striped well">
+<div class="table-striped well">
  &lt;!&ndash;/*@thymesVar id="entries" type="java.util.List<be.odisee.travelbase.domain.Entry>"*/&ndash;&gt;
     <div th:each="entry: ${entries}" class="row"
          th:onclick="'window.location.href = \'' + @{/travelbase/edit?id={id} (id=${entry.getId()}) } + '\''">
@@ -159,7 +163,7 @@
         <div class="col-md-5 text-left" th:text="${entry.getBeoordeling()}"> beoordeling</div>
     </div>
 </div>-->
-<div class="table-striped well">
+<div th:if="${entries.size()}!=0" class="table-striped well">
     <div th:each="entry: ${entries}"  class="row"
          th:onclick="'window.location.href = \'' + @{/travelbase/edit?id={id} (id=${entry.getId()}) } + '\''">
         <div class="col-md-1 text-left"

@@ -1,5 +1,6 @@
 package be.odisee.travelbase.dao;
 
+import be.odisee.travelbase.domain.Gebruiker;
 import org.springframework.data.repository.CrudRepository;
 
 import java.time.LocalDateTime;
@@ -20,7 +21,9 @@ public interface EntryRepository extends CrudRepository<Entry, Long> {
     /**
      * @return The entry with the largest id = the most recently added entry
      */
-    public Entry findFirstByOrderByIdDesc();
+    public Entry findFirstByGebruikerOrderByIdDesc(Gebruiker gebruiker);
+
+    public List<Entry> findByEvaluatieficheNotNullAndGebruiker(Gebruiker gebruiker);
 
 
 }

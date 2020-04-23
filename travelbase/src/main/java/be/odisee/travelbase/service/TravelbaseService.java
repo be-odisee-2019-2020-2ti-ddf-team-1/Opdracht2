@@ -14,7 +14,7 @@ public interface TravelbaseService {
 
     public Map<String, List<Evaluatiefiche>> getActiviteitenWithEvaluatiefiches();
 
-    public Object getEntries();
+    public List<Entry> getEntries();
 
     public EntryData prepareNewEntryData();
 
@@ -24,5 +24,5 @@ public interface TravelbaseService {
 
     public void deleteEntry(long id);
 
-    public String getAuthenticatedUsername();
+    public String getAuthenticatedFullname();
 }
