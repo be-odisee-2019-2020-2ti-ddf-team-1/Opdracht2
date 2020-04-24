@@ -14,14 +14,14 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class StepDefinition {
+public class goToEntryTest {
 
     WebDriver driver;
 
     @Given("^I am on the home page$")
     public void i_am_on_the_home_page() throws Throwable{
 
-        System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver", "C:\\applicaties\\geckodriver.exe");
 
         driver = new ChromeDriver();
         driver.navigate().to("http://localhost:8080/");
@@ -40,6 +40,5 @@ public class StepDefinition {
         new WebDriverWait(driver, 10).until(ExpectedConditions.urlToBe(entryUrl));
 
         Assert.assertTrue("Did not find the page: " + entryUrl + "\n", driver.getCurrentUrl().equals(entryUrl));
-
     }
 }
