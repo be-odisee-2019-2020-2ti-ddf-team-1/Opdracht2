@@ -14,14 +14,15 @@ public interface TravelbaseService {
 
     public Map<String, List<Evaluatiefiche>> getActiviteitenWithEvaluatiefiches();
 
-    public Object getEntries();
+    public List<Entry> getEntries();
 
     public EntryData prepareNewEntryData();
 
     public String processEntry(@Valid EntryData entryData);
 
-
     public EntryData prepareEntryDataToEdit(long id);
 
     public void deleteEntry(long id);
+
+    public String getAuthenticatedFullname();
 }

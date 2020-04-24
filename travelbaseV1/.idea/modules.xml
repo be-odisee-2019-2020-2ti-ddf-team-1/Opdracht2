@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-<<<<<<< Updated upstream
       <module fileurl="file://$PROJECT_DIR$/.idea/travelbaseV1.iml" filepath="$PROJECT_DIR$/.idea/travelbaseV1.iml" />
-=======
-      <module fileurl="file://$PROJECT_DIR$/travelbase.iml" filepath="$PROJECT_DIR$/travelbase.iml" />
->>>>>>> Stashed changes
     </modules>
   </component>
 </project>
