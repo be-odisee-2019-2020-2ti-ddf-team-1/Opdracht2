@@ -3,12 +3,16 @@ package be.odisee.travelbase.service;
 import be.odisee.travelbase.dao.ActiviteitRepository;
 import be.odisee.travelbase.dao.EvaluatieficheRepository;
 import  be.odisee.travelbase.dao.EntryRepository;
+import be.odisee.travelbase.dao.GebruikerRepository;
 import be.odisee.travelbase.domain.Activiteit;
 import be.odisee.travelbase.domain.Entry;
 import be.odisee.travelbase.domain.Evaluatiefiche;
+import be.odisee.travelbase.domain.Gebruiker;
 import be.odisee.travelbase.formdata.EntryData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -32,12 +36,15 @@ public class TravelbaseServiceImpl implements TravelbaseService {
     @Autowired
     EntryRepository entryRepository;
 
+    @Autowired
+    GebruikerRepository gebruikerRepository;
+
     private List<Activiteit> getActiviteiten() {
-        return (List<Activiteit>) activiteitRepository.findAllByOrderByNaam();
+        return (List<Activiteit>) activiteitRepository.findAllByGebruikerOrderByNaam(findAuthenticatedUser());
     }
 
     private List<Evaluatiefiche> getEvaluatiefiches() {
-        return (List<Evaluatiefiche>) evaluatieficheRepository.findAllByOrderByNaam();
+        return (List<Evaluatiefiche>) evaluatieficheRepository.findAllByGebruikerOrderByNaam(findAuthenticatedUser());
     }
 
 
@@ -79,7 +86,7 @@ public class TravelbaseServiceImpl implements TravelbaseService {
     @Override
     public List<Entry> getEntries() {
 
-        return (List<Entry>) entryRepository.findAll();
+        return entryRepository.findByEvaluatieficheNotNullAndGebruiker(findAuthenticatedUser());
     }
 
     /**
@@ -90,7 +97,8 @@ public class TravelbaseServiceImpl implements TravelbaseService {
      */
     public EntryData prepareNewEntryData() {
 
-        Entry lastEntry = entryRepository.findFirstByOrderByIdDesc();
+        Gebruiker theUser = findAuthenticatedUser();
+        Entry lastEntry = entryRepository.findFirstByGebruikerOrderByIdDesc(theUser);
         return prepareEntryData(lastEntry);
     }
 
@@ -105,7 +113,7 @@ public class TravelbaseServiceImpl implements TravelbaseService {
 
         EntryData entryData = new EntryData();
 
-        if (theEntry != null) {
+        if (theEntry.getEvaluatiefiche() != null) {
 
             // Pick up the last entry project choice and adapt it to the form
             Evaluatiefiche lastEvaluatiefiche = theEntry.getEvaluatiefiche();
@@ -147,6 +155,8 @@ public class TravelbaseServiceImpl implements TravelbaseService {
         if (entryData.getId() == 0) entry = new Entry();
         else entry = entryRepository.findById( entryData.getId() );
 
+        if (entry.getGebruiker() == null) entry.setGebruiker(findAuthenticatedUser());
+
         // The evaluatieficheId is that of the one and only selected
         long[] evaluatieficheIds = entryData.getEvaluatieficheIds();
         long evaluatieficheId = Arrays.stream(evaluatieficheIds).max().getAsLong();
@@ -185,4 +195,25 @@ public class TravelbaseServiceImpl implements TravelbaseService {
         Entry entry = entryRepository.findById(id);
         entryRepository.delete(entry);
     }
+
+    public String getAuthenticatedUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        return currentPrincipalName;
+    }
+
+    private Gebruiker findAuthenticatedUser() {
+
+        String gebruiker = getAuthenticatedUsername();
+        return gebruikerRepository.findByGebruikersnaam(gebruiker);
+    }
+
+    @Override
+    public String getAuthenticatedFullname() {
+
+        Gebruiker theUser = findAuthenticatedUser();
+        return theUser.getNaam();
+    }
+
+
 }

@@ -21,7 +21,7 @@ public class Entry {
     private final long id;
 
     @ManyToOne
-    private Verkenner verkenner;
+    private Gebruiker gebruiker;
 
     @ManyToOne
     private Evaluatiefiche evaluatiefiche;
