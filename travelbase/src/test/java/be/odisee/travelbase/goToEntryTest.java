@@ -14,7 +14,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class StepDefinition {
+public class goToEntryTest {
 
     WebDriver driver;
 
@@ -23,8 +23,8 @@ public class StepDefinition {
 
         System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
 
-        driver = new ChromeDriver();
-        driver.navigate().to("http://localhost:8080/");
+        driver = new FirefoxDriver();
+        driver.navigate().to("https://localhost:8443/");
     }
 
     @When("^I press on the Entry button$")
@@ -34,12 +34,11 @@ public class StepDefinition {
 
     @Then("^I should be on the Entry page$")
     public void i_should_be_on_the_Entry_page() throws Throwable{
-        String entryUrl = "http://localhost:8080/travelbase/";
+        String entryUrl = "http://localhost:8443/travelbase/";
 
         // wachten tot pagina geladen is
         new WebDriverWait(driver, 10).until(ExpectedConditions.urlToBe(entryUrl));
 
         Assert.assertTrue("Did not find the page: " + entryUrl + "\n", driver.getCurrentUrl().equals(entryUrl));
-
     }
 }

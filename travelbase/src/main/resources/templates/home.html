@@ -11,14 +11,21 @@
 <div class="jumbotron banner">
     <div class="container">
         <h1>Welkom bij Travelbase</h1>
-        <p>
-            <a class="btn btn-primary btn-lg" id="btnEntry"> Ga naar Entries</a> <!-- id voor acceptatietest -->
-        </p>
+
+        <div th:if="${error}" class="aanps">
+            Unable to login. Check your username and password.<br/>
+        </div>
+        <form class="aanp" method="POST" th:action="@{/}">
+            <label for="username">Username : </label>
+            <input type="text" name="username"/><br/> <br/>
+            <label for="password">Password : </label>
+            <input type="password" name="password"/><br/>
+            <p>
+                <input type="submit" value="Login" id="btnEntry" class="btn btn-primary btn-lg"/>
+            </p>
+        </form>
     </div>
 </div>
 
-<!-- afbeelding is als achtergrond aan css toegevoegd.
-<img th:src="@{/images/logo.jpg}" />
--->
 </body>
 </html>
