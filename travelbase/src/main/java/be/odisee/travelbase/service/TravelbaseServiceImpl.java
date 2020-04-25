@@ -1,27 +1,20 @@
 package be.odisee.travelbase.service;
 
 import be.odisee.travelbase.dao.ActiviteitRepository;
-import be.odisee.travelbase.dao.EvaluatieficheRepository;
-import  be.odisee.travelbase.dao.EntryRepository;
+import be.odisee.travelbase.dao.EvaluatieFicheRepository;
 import be.odisee.travelbase.dao.GebruikerRepository;
 import be.odisee.travelbase.domain.Activiteit;
-import be.odisee.travelbase.domain.Entry;
-import be.odisee.travelbase.domain.Evaluatiefiche;
+import be.odisee.travelbase.domain.EvaluatieFiche;
 import be.odisee.travelbase.domain.Gebruiker;
-import be.odisee.travelbase.formdata.EntryData;
+import be.odisee.travelbase.formdata.EvaluatieFicheData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -31,169 +24,99 @@ public class TravelbaseServiceImpl implements TravelbaseService {
     private ActiviteitRepository activiteitRepository;
 
     @Autowired
-    private EvaluatieficheRepository evaluatieficheRepository;
-
-    @Autowired
-    EntryRepository entryRepository;
+    EvaluatieFicheRepository evaluatieFicheRepository;
 
     @Autowired
     GebruikerRepository gebruikerRepository;
 
-    private List<Activiteit> getActiviteiten() {
+    @Override
+    public List<Activiteit> getActiviteiten() {
         return (List<Activiteit>) activiteitRepository.findAllByGebruikerOrderByNaam(findAuthenticatedUser());
     }
 
-    private List<Evaluatiefiche> getEvaluatiefiches() {
-        return (List<Evaluatiefiche>) evaluatieficheRepository.findAllByGebruikerOrderByNaam(findAuthenticatedUser());
-    }
-
-
-
-    /**
-     * Creates a map with categories as keys
-     * and lists of projects belonging to that category
-     *
-     * @return the map
-     */
     @Override
-    public Map<String, List<Evaluatiefiche>> getActiviteitenWithEvaluatiefiches() {
+    public List<EvaluatieFiche> getEvaluatieFiches() {
 
-        Map<String, List<Evaluatiefiche>> activiteitenWithEvaluatiefichesMap = new LinkedHashMap<String, List<Evaluatiefiche>>();
-
-        List<Activiteit> activiteiten = getActiviteiten();
-        List<Evaluatiefiche> evaluatiefiches = getEvaluatiefiches();
-
-        for (Activiteit activiteit : activiteiten) {
-
-            activiteitenWithEvaluatiefichesMap.put(activiteit.getNaam().toUpperCase(),
-                    filterByActiviteit(evaluatiefiches, activiteit.getNaam()));
-        }
-
-        return activiteitenWithEvaluatiefichesMap;
+        return evaluatieFicheRepository.findByActiviteitNotNullAndGebruiker(findAuthenticatedUser());
     }
 
     /**
-     * A Java-8-filter to filter projects per category
-     */
-    private List<Evaluatiefiche> filterByActiviteit(
-            List<Evaluatiefiche> evaluatiefiches, String activiteit) {
-        return evaluatiefiches
-                .stream()
-                .filter(x -> x.getActiviteit().getNaam().equals(activiteit))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Entry> getEntries() {
-
-        return entryRepository.findByEvaluatieficheNotNullAndGebruiker(findAuthenticatedUser());
-    }
-
-    /**
-     * Instantiates and initializes new EntryData-object
+     * Instantiates and initializes new EvaluatieFicheData-object
      * to be used in the form
      *
      * @return
      */
-    public EntryData prepareNewEntryData() {
+    public EvaluatieFicheData prepareNewEvaluatieFicheData() {
 
         Gebruiker theUser = findAuthenticatedUser();
-        Entry lastEntry = entryRepository.findFirstByGebruikerOrderByIdDesc(theUser);
-        return prepareEntryData(lastEntry);
+        EvaluatieFiche lastEvaluatieFiche = evaluatieFicheRepository.findFirstByGebruikerOrderByIdDesc(theUser);
+        return prepareEvaluatieFicheData(lastEvaluatieFiche);
     }
 
     /**
-     * Prepares an EntryData-object based on an Entry-object
+     * Prepares an EvaluatieFicheData-object based on an EvaluatieFiche-object
      *
-     * @param theEntry  the Entry-object
-
+     * @param theEvaluatieFiche the EvaluatieFiche-object
      * @return
      */
-    private EntryData prepareEntryData(Entry theEntry) {
+    private EvaluatieFicheData prepareEvaluatieFicheData(EvaluatieFiche theEvaluatieFiche) {
 
-        EntryData entryData = new EntryData();
+        EvaluatieFicheData evaluatieFicheData = new EvaluatieFicheData();
 
-        if (theEntry.getEvaluatiefiche() != null) {
+        List<Activiteit> activiteiten = getActiviteiten();
 
-            // Pick up the last entry project choice and adapt it to the form
-            Evaluatiefiche lastEvaluatiefiche = theEntry.getEvaluatiefiche();
-            List<Activiteit> activiteiten = getActiviteiten();
-            List<Long> evaluatieficheIdsInList = new ArrayList<Long>();
-            for (Activiteit activiteit : activiteiten) {
-                if (activiteit.equals(lastEvaluatiefiche.getActiviteit()))
-                    evaluatieficheIdsInList.add(lastEvaluatiefiche.getId());
-                else
-                    evaluatieficheIdsInList.add(0L);
-            }
-            // An array of long primitives is needed
-            long[] evaluatieficheIds = evaluatieficheIdsInList.stream().mapToLong(l -> l).toArray();
-            entryData.setEvaluatieficheIds(evaluatieficheIds);
+        // Pick up the other last EvaluatieFiche data and propose them in the form
+        evaluatieFicheData.setDateTime(theEvaluatieFiche.getDateTime().toString());
 
 
-            // Pick up the other last entry data and propose them in the form
-            entryData.setDateTime( theEntry.getDateTime().toString());
-
-
-            entryData.setFeedback( theEntry.getFeedback() );
-            entryData.setOordeel( theEntry.getOordeel() );
-            entryData.setBeoordeling( theEntry.getBeoordeling() );
-
-        } else {
-//            entryData.setObjectiveId(0);
-            entryData.setDateTime(LocalDate.now().toString());
-//            entryData.setStartTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
-//            entryData.setEndTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
-        }
-        return entryData;
+        evaluatieFicheData.setFeedback(theEvaluatieFiche.getFeedback());
+        evaluatieFicheData.setOordeel(theEvaluatieFiche.getOordeel());
+        evaluatieFicheData.setBeoordeling(theEvaluatieFiche.getBeoordeling());
+        return evaluatieFicheData;
     }
 
     @Override
-    public String processEntry(EntryData entryData) {
+    public String processEvaluatieFiche(EvaluatieFicheData evaluatieFicheData) {
 
-        Entry entry;
+        EvaluatieFiche evaluatieFiche;
 
-        if (entryData.getId() == 0) entry = new Entry();
-        else entry = entryRepository.findById( entryData.getId() );
+        if (evaluatieFicheData.getId() == 0) evaluatieFiche = new EvaluatieFiche();
+        else evaluatieFiche = evaluatieFicheRepository.findById(evaluatieFicheData.getId());
 
-        if (entry.getGebruiker() == null) entry.setGebruiker(findAuthenticatedUser());
+        if (evaluatieFiche.getGebruiker() == null) evaluatieFiche.setGebruiker(findAuthenticatedUser());
 
-        // The evaluatieficheId is that of the one and only selected
-        long[] evaluatieficheIds = entryData.getEvaluatieficheIds();
-        long evaluatieficheId = Arrays.stream(evaluatieficheIds).max().getAsLong();
-        entry.setEvaluatiefiche( evaluatieficheRepository.findById(evaluatieficheId) );
+        LocalDate dateTime = LocalDate.parse(evaluatieFicheData.getDateTime());
+        evaluatieFiche.setDateTime(dateTime);
 
-        LocalDate dateTime = LocalDate.parse(entryData.getDateTime());
-        entry.setDateTime(dateTime);
+        String feedback = evaluatieFicheData.getFeedback();
+        evaluatieFiche.setFeedback(feedback);
 
-        String feedback = entryData.getFeedback();
-        entry.setFeedback( feedback );
+        String oordeel = evaluatieFicheData.getOordeel();
+        evaluatieFiche.setOordeel(oordeel);
 
-        String oordeel = entryData.getOordeel();
-        entry.setOordeel( oordeel );
+        String beoordeling = evaluatieFicheData.getBeoordeling();
+        evaluatieFiche.setBeoordeling(beoordeling);
 
-        String beoordeling = entryData.getBeoordeling();
-        entry.setBeoordeling( beoordeling );
-
-        // Save the newly created entry
-        entryRepository.save(entry);
-        return entry.getDateTime() + " '" + entry.getFeedback() + " '" + entry.getOordeel() + " '" + entry.getBeoordeling() + " '" + "' has been processed";
+        // Save the newly created EvaluatieFiche
+        evaluatieFicheRepository.save(evaluatieFiche);
+        return evaluatieFiche.getDateTime() + " '" + evaluatieFiche.getFeedback() + " '" + evaluatieFiche.getOordeel() + " '" + evaluatieFiche.getBeoordeling() + " '" + "' has been processed";
 
     }
 
     @Override
-    public EntryData prepareEntryDataToEdit(long id) {
+    public EvaluatieFicheData prepareEvaluatieFicheDataToEdit(long id) {
 
-        Entry theEntry = entryRepository.findById(id);
-        EntryData theEntryData = prepareEntryData(theEntry);
-        theEntryData.setId(id);
-        return theEntryData;
+        EvaluatieFiche theEvaluatieFiche = evaluatieFicheRepository.findById(id);
+        EvaluatieFicheData theEvaluatieFicheData = prepareEvaluatieFicheData(theEvaluatieFiche);
+        theEvaluatieFicheData.setId(id);
+        return theEvaluatieFicheData;
     }
 
     @Override
-    public void deleteEntry(long id) {
+    public void deleteEvaluatieFiche(long id) {
 
-        Entry entry = entryRepository.findById(id);
-        entryRepository.delete(entry);
+        EvaluatieFiche evaluatieFiche = evaluatieFicheRepository.findById(id);
+        evaluatieFicheRepository.delete(evaluatieFiche);
     }
 
     public String getAuthenticatedUsername() {

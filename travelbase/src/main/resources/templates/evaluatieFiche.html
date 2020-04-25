@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>EvaluatieFiche - TravelBase</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <script>
+        function rowClicked(value) {
+            location.href = "/travelbase/edit" + value
+        }
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Travelbase</a>
+        </div>
+        <ul class="nav navbar-nav collapse navbar-collapse">
+            <li><a href="/"> Home</a></li>
+            <li><a href="#">EvaluatieFiche</a></li>
+        </ul>
+    </div>
+</nav>
+
+
+<form method="POST" style="float: right" th:action="@{/logout}">
+    <button class="btn btn-danger btn-md logout" name="logout"
+            value="Logout">Logout
+    </button>
+</form>
+
+<div class="afbd">
+    <form method="POST" th:action="@{/travelbase}" th:object="${evaluatieFicheData}">
+        <h1>Formulier verslag, <span th:text="${naam}"> naam </span></h1>
+        <input th:field="*{id}" type="hidden"/>
+
+        <div class="well">
+            <div class="activiteit">
+                <label>Activiteit: </label>
+                <select th:field="*{evaluatieficheIds}">
+                    <option value="0">No choice</option>
+                    <option th:each="activiteit : ${activiteiten}"
+                            th:text="${activiteit.naam}"
+                            th:value="${activiteit.id}">
+                    </option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label>Date: </label><input th:field="*{dateTime}" type="date"/> &nbsp;
+            <span class="validationError"
+                  th:errors="*{dateTime}"
+                  th:if="#{fields.hasErrors('dateTime')}">dateTimeError
+        </span>
+        </div>
+
+        <div class="form-group">
+            <label>Feedback: </label>
+            <textarea class="form-control" rows="3" th:field="*{feedback}"></textarea>
+            <span class="validationError" th:errors="*{feedback}"
+                  th:if="#{fields.hasErrors('feedback')}">feedbackError</span>
+        </div>
+        <div class="form-group">
+            <label>Oordeel: </label>
+            <textarea class="form-control" rows="3" th:field="*{oordeel}"></textarea>
+            <span class="validationError" th:errors="*{oordeel}"
+                  th:if="#{fields.hasErrors('oordeel')}">oordeelkError</span>
+        </div>
+        <div class="form-group">
+            <label>Beoordeling: </label>
+            <textarea class="form-control" rows="3" th:field="*{beoordeling}"></textarea>
+            <span class="validationError" th:errors="*{beoordeling}" th:if="#{fields.hasErrors('beoordeling')}">beoordelingError</span>
+        </div>
+
+        <div class="form-group zaza" th:if="${evaluatieFicheData.getId()}==0">
+            <button class="btn btn-primary btn-lg" name="submit">Create evaluatieFiche</button>
+        </div>
+        <div class="form-group zaza" th:if="${evaluatieFicheData.getId()}!=0">
+            <button class="btn btn-primary btn-lg" name="submit">Update evaluatieFiche</button>
+            <button class="btn btn-danger btn-lg" name="delete">Delete evaluatieFiche</button>
+            <button class="btn btn-warning btn-lg" name="cancel">Cancel</button>
+        </div>
+    </form>
+</div>
+
+
+<div class="well" th:if="${message}!=null" th:text="${message}">
+    blablabla nana
+</div>
+<!--
+<div class="container bla well">
+
+
+    <div class="row" th:each="evaluatieFiche: ${evaluatieFiches}"
+         th:onclick="'window.location.href = \'' + @{/travelbase/edit?id={id} (id=${evaluatieFiche.getId()}) } + '\''">
+        <div class="col-md-auto" th:text="${#temporals.format(evaluatieFiche.getDateTime(), 'dd-MM-yyyy')}"> Date</div>
+        <div class="col-md-auto" th:text="${evaluatieFiche.getEvaluatiefiche().getActiviteit().getNaam()}"> activiteit
+        </div>
+        <div class="col-md-auto" th:text="${evaluatieFiche.getEvaluatiefiche().getNaam()}"> evaluatiefiche</div>
+        <div class="col-md-auto" th:text="${evaluatieFiche.getFeedback()}"> feedback</div>
+        <div class="col-md-auto" th:text="${evaluatieFiche.getOordeel()}"> oordeel</div>
+        <div class="col-md-auto" th:text="${evaluatieFiche.getBeoordeling()}"> beoordeling</div>
+    </div>
+</div>
+-->
+</body>
+</html>

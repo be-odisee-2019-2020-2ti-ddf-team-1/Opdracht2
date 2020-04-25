@@ -33,7 +33,7 @@ public class Gebruiker implements UserDetails{
     @OneToOne
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Entry dummyEntry;
+    private EvaluatieFiche dummyEvaluatieFiche;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

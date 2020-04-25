@@ -1,12 +1,10 @@
 package be.odisee.travelbase;
 
 import be.odisee.travelbase.dao.ActiviteitRepository;
-import be.odisee.travelbase.dao.EntryRepository;
-import be.odisee.travelbase.dao.EvaluatieficheRepository;
+import be.odisee.travelbase.dao.EvaluatieFicheRepository;
 import be.odisee.travelbase.dao.GebruikerRepository;
 import be.odisee.travelbase.domain.Activiteit;
-import be.odisee.travelbase.domain.Entry;
-import be.odisee.travelbase.domain.Evaluatiefiche;
+import be.odisee.travelbase.domain.EvaluatieFiche;
 import be.odisee.travelbase.domain.Gebruiker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -31,13 +29,10 @@ public class TravelbaseApplicationInitDB implements CommandLineRunner {
     ActiviteitRepository activiteitRepository;
 
     @Autowired
-    EvaluatieficheRepository evaluatieficheRepository;
-
-    @Autowired
     GebruikerRepository gebruikerRepository;
 
     @Autowired
-    EntryRepository entryRepository;
+    EvaluatieFicheRepository evaluatieFicheRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -53,17 +48,17 @@ public class TravelbaseApplicationInitDB implements CommandLineRunner {
             // gebruiker must be saved for it to have an id
             gebruikerRepository.save(gebruiker);
 
-            // There must be 1 dummy entry for each gebruiker to save the next startTimeFrom
-            Entry dummyEntry = new Entry();
-            dummyEntry.setGebruiker(gebruiker);
+            // There must be 1 dummy evaluatiefiche for each gebruiker to save the next startTimeFrom
+            EvaluatieFiche dummyEvaluatieFiche = new EvaluatieFiche();
+            dummyEvaluatieFiche.setGebruiker(gebruiker);
             LocalDate now = LocalDate.now();
-            dummyEntry.setDateTime(now);
-            dummyEntry.setFeedback("This is een domme entry, hier komt jouw feedback");
-            dummyEntry.setOordeel("This is een domme entry, hier komt jouw oordeel");
-            dummyEntry.setBeoordeling("This is een domme entry, hier komt jouw beoordeling");
-            entryRepository.save(dummyEntry);
+            dummyEvaluatieFiche.setDateTime(now);
+            dummyEvaluatieFiche.setFeedback("This is een domme evaluatiefiche, hier komt jouw feedback");
+            dummyEvaluatieFiche.setOordeel("This is een domme evaluatiefiche, hier komt jouw oordeel");
+            dummyEvaluatieFiche.setBeoordeling("This is een domme evaluatiefiche, hier komt jouw beoordeling");
+            evaluatieFicheRepository.save(dummyEvaluatieFiche);
 
-            gebruiker.setDummyEntry(dummyEntry);
+            gebruiker.setDummyEvaluatieFiche(dummyEvaluatieFiche);
             gebruikerRepository.save(gebruiker);
         }
 
@@ -81,22 +76,6 @@ public class TravelbaseApplicationInitDB implements CommandLineRunner {
             for (Activiteit activiteit : activiteiten) {
                 activiteitRepository.save(activiteit);
             }
-            ;
-
-            List<Evaluatiefiche> evaluatiefiches = Arrays.asList(
-                    new Evaluatiefiche(1, "EF_BXL_Atomium", activiteitRepository.findActiviteitByGebruikerAndNaam(gebruiker, "BXL_Atomium"), gebruiker),
-                    new Evaluatiefiche(2, "EF_BXL_BusSightSeeing", activiteitRepository.findActiviteitByGebruikerAndNaam(gebruiker, "BXL_BusSightSeeing"), gebruiker),
-                    new Evaluatiefiche(3, "EF_BXL_MiniEurope", activiteitRepository.findActiviteitByGebruikerAndNaam(gebruiker, "BXL_MiniEurope"), gebruiker),
-                    new Evaluatiefiche(4, "EF_BXL_BelgianFood", activiteitRepository.findActiviteitByGebruikerAndNaam(gebruiker, "BXL_BelgianFood"), gebruiker),
-                    new Evaluatiefiche(5, "EF_BXL_Tour", activiteitRepository.findActiviteitByGebruikerAndNaam(gebruiker, "BXL_Tour"), gebruiker),
-                    new Evaluatiefiche(6, "EF_BXL_ChocolateFactory", activiteitRepository.findActiviteitByGebruikerAndNaam(gebruiker, "BXL_ChocolateFactory"), gebruiker)
-
-            );
-
-            for (Evaluatiefiche evaluatiefiche : evaluatiefiches) {
-                evaluatieficheRepository.save(evaluatiefiche);
-            }
-
         }
     }
 }

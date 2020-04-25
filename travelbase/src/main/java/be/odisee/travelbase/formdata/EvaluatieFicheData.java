@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class EntryData {
+public class EvaluatieFicheData {
 
     // id is needed for updating
     private long id=0;
