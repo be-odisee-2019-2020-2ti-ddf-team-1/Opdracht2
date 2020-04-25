@@ -1,28 +1,25 @@
 package be.odisee.travelbase.service;
 
-import be.odisee.travelbase.domain.Evaluatiefiche;
-import be.odisee.travelbase.domain.Entry;
-import be.odisee.travelbase.formdata.EntryData;
+import be.odisee.travelbase.domain.Activiteit;
+import be.odisee.travelbase.domain.EvaluatieFiche;
+import be.odisee.travelbase.formdata.EvaluatieFicheData;
 
 import javax.validation.Valid;
-import java.time.Duration;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 public interface TravelbaseService {
 
-    public Map<String, List<Evaluatiefiche>> getActiviteitenWithEvaluatiefiches();
+    public List<Activiteit> getActiviteiten();
 
-    public List<Entry> getEntries();
+    public List<EvaluatieFiche> getEvaluatieFiches();
 
-    public EntryData prepareNewEntryData();
+    public EvaluatieFicheData prepareNewEvaluatieFicheData();
 
-    public String processEntry(@Valid EntryData entryData);
+    public String processEvaluatieFiche(@Valid EvaluatieFicheData evaluatieFicheData);
 
-    public EntryData prepareEntryDataToEdit(long id);
+    public EvaluatieFicheData prepareEvaluatieFicheDataToEdit(long id);
 
-    public void deleteEntry(long id);
+    public void deleteEvaluatieFiche(long id);
 
     public String getAuthenticatedFullname();
 }

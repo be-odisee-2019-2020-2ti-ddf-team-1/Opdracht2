@@ -10,11 +10,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "ENTRIES")
+@Table(name = "EVALUATIEFICHE")
 @Data
 @RequiredArgsConstructor
 @NoArgsConstructor(force=true)
-public class Entry {
+public class EvaluatieFiche {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class Entry {
     private Gebruiker gebruiker;
 
     @ManyToOne
-    private Evaluatiefiche evaluatiefiche;
+    private Activiteit activiteit;
 
 
     private LocalDate dateTime;
