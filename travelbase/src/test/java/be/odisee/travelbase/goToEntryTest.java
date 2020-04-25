@@ -21,10 +21,10 @@ public class goToEntryTest {
     @Given("^I am on the home page$")
     public void i_am_on_the_home_page() throws Throwable{
 
-        System.setProperty("webdriver.gecko.driver", "C:\\applicaties\\geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
 
-        driver = new ChromeDriver();
-        driver.navigate().to("http://localhost:8080/");
+        driver = new FirefoxDriver();
+        driver.navigate().to("https://localhost:8443/");
     }
 
     @When("^I press on the Entry button$")
@@ -34,7 +34,7 @@ public class goToEntryTest {
 
     @Then("^I should be on the Entry page$")
     public void i_should_be_on_the_Entry_page() throws Throwable{
-        String entryUrl = "http://localhost:8080/travelbase/";
+        String entryUrl = "http://localhost:8443/travelbase/";
 
         // wachten tot pagina geladen is
         new WebDriverWait(driver, 10).until(ExpectedConditions.urlToBe(entryUrl));

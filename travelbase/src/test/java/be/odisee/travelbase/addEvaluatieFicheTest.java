@@ -25,10 +25,10 @@ public class addEvaluatieFicheTest {
 
     @Given("^I am on the Entry page where I can add a new Entry$")
     public void i_am_on_the_Entry_page_where_I_can_add_a_new_Entry() throws Throwable {
-        System.setProperty("webdriver.gecko.driver", "C:\\applicaties\\geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
 
-        driver = new ChromeDriver();
-        driver.navigate().to("http://localhost:8080/travelbase");
+        driver = new FirefoxDriver();
+        driver.navigate().to("https://localhost:8443/travelbase");
     }
 
     @When("^I select EF_BXL_Atomium in the BXL_Atomium field$")
