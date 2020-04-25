@@ -8,7 +8,8 @@ import org.junit.runners.Suite;
 @RunWith(Cucumber.class)
 @CucumberOptions(format={"pretty", "html:target/cucumber"},tags={"~@skip"}, features = "src/test/resources/be.odisee.travelbase")
 @Suite.SuiteClasses({
-        addEvaluatieFicheTest.class,
+
         goToEntryTest.class})
 public class TravelbaseApplicationTests {
 }
+

@@ -53,7 +53,7 @@
 
 
     <div class="form-group">
-        <label>Date: </label><input type="date" th:field="*{dateTime}"/> &nbsp;
+        <label>Date: </label><input type="date" name="dateTime" th:field="*{dateTime}" /> &nbsp;
         <span class="validationError"
               th:if="#{fields.hasErrors('dateTime')}"
               th:errors="*{dateTime}">dateTimeError
@@ -62,17 +62,17 @@
 
     <div class="form-group">
         <label>Feedback: </label>
-        <textarea class="form-control" rows="3" th:field="*{feedback}"></textarea>
+        <textarea class="form-control" rows="3" name="feedback" th:field="*{feedback}"></textarea>
         <span class="validationError" th:if="#{fields.hasErrors('feedback')}" th:errors="*{feedback}">feedbackError</span>
     </div>
     <div class="form-group">
         <label>Oordeel: </label>
-        <textarea class="form-control" rows="3" th:field="*{oordeel}"></textarea>
+        <textarea class="form-control" rows="3" name="oordeel" th:field="*{oordeel}"></textarea>
         <span class="validationError" th:if="#{fields.hasErrors('oordeel')}" th:errors="*{oordeel}">oordeelkError</span>
     </div>
     <div class="form-group">
         <label>Beoordeling: </label>
-        <textarea class="form-control" rows="3" th:field="*{beoordeling}"></textarea>
+        <textarea class="form-control" rows="3" name="beoordeling" th:field="*{beoordeling}"></textarea>
         <span class="validationError" th:if="#{fields.hasErrors('beoordeling')}" th:errors="*{beoordeling}">beoordelingError</span>
     </div>
 
