@@ -15,6 +15,9 @@ public class HomeController {
     @GetMapping("/login-error")
     public String loginerror(Model model) {
         model.addAttribute("error", true);
-        return "login";
+        return "home";
     }
+
+
+
 }
