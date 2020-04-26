@@ -9,9 +9,8 @@ Feature: add new EvaluatieFiche
     And I enter "dit is een beoordeling" in the Beoordeling field
     And I press on the Submit button
     Then I should see the following on the screen
-      | 24-04-2020             |
-      | BXL_Atomium            |
-      | EF_BXL_Atomium         |
+      | BXL_BelgianFood        |
+      | 26-04-2020             |
       | dit is feedback        |
       | dit is een oordeel     |
       | dit is een beoordeling |

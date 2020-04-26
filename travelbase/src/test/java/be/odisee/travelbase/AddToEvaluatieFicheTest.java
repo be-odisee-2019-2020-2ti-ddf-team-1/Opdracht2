@@ -15,6 +15,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import javax.validation.constraints.AssertTrue;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class AddToEvaluatieFicheTest extends AbstractStepDefinition{
@@ -39,9 +41,8 @@ public class AddToEvaluatieFicheTest extends AbstractStepDefinition{
 
     @And("^I select the date of today in the Date field$")
     public void i_select_the_date_of_today_in_the_Date_field() throws Throwable {
-        driver.findElement(By.name("dateTime")).click();
-        driver.findElement(By.name("dateTime")).sendKeys("04242020");
-        driver.findElement(By.name("dateTime")).sendKeys(Keys.ENTER);
+        //driver.findElement(By.name("dateTime")).click();
+        driver.findElement(By.name("dateTime")).sendKeys("04-24-2020");
     }
 
     @And("^I enter \"dit is feedback\" in the Feedback field$")
@@ -67,7 +68,7 @@ public class AddToEvaluatieFicheTest extends AbstractStepDefinition{
 
     @Then("^I should see the following on the screen$")
     public void i_should_see_the_following_on_the_screen(List<String> checklist) throws Throwable {
-        new WebDriverWait(driver, 10).until(ExpectedConditions.textToBePresentInElementLocated(By.tagName("body"), "Details van Entry"));
+        //new WebDriverWait(driver, 10).until(ExpectedConditions.textToBePresentInElementValue(By.name("evaluatieFicheRecord"), "EvaluatieFiche record: "));
 
         String bodyText = driver.findElement(By.tagName("body")).getText();
         for (String st : checklist) {
