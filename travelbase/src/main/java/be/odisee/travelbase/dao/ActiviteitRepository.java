@@ -12,6 +12,7 @@ public interface ActiviteitRepository extends CrudRepository<Activiteit, Long> {
      * Look up a activity based on its unique name
      */
     public Activiteit findActiviteitByGebruikerAndNaam(Gebruiker gebruiker, String naam);
+    public Activiteit findActiviteitByGebruiker(Gebruiker gebruiker);
 
     /**
      * List all activiteiten, order alphabetically by name

@@ -36,7 +36,6 @@ public class TravelbaseServiceImpl implements TravelbaseService {
 
     @Override
     public List<EvaluatieFiche> getEvaluatieFiches() {
-
         return evaluatieFicheRepository.findAllByGebruiker(findAuthenticatedUser());
     }
 
@@ -60,10 +59,7 @@ public class TravelbaseServiceImpl implements TravelbaseService {
      * @return
      */
     private EvaluatieFicheData prepareEvaluatieFicheData(EvaluatieFiche theEvaluatieFiche) {
-
-        EvaluatieFicheData evaluatieFicheData = new EvaluatieFicheData();
-
-
+      EvaluatieFicheData evaluatieFicheData = new EvaluatieFicheData();
 
         List<Activiteit> activiteiten = getActiviteiten();
 
@@ -78,6 +74,7 @@ evaluatieFicheData.setActiviteitId(0);
         evaluatieFicheData.setOordeel(theEvaluatieFiche.getOordeel());
         evaluatieFicheData.setBeoordeling(theEvaluatieFiche.getBeoordeling());
         return evaluatieFicheData;
+
     }
 
     @Override
@@ -92,6 +89,11 @@ evaluatieFicheData.setActiviteitId(0);
         long activiteitId = evaluatieFicheData.getActiviteitId();
         if (activiteitId !=0) evaluatieFiche.setActiviteit( activiteitRepository.findById(activiteitId) );
         else evaluatieFiche.setActiviteit( null );
+
+        int activiteitId = (int)evaluatieFicheData.getActiviteitId();
+
+        Activiteit activiteit = getActiviteiten().get(activiteitId);
+        evaluatieFiche.setActiviteit(activiteit);
 
         LocalDate dateTime = LocalDate.parse(evaluatieFicheData.getDateTime());
         evaluatieFiche.setDateTime(dateTime);

@@ -1,5 +1,6 @@
 package be.odisee.travelbase.domain;
 
+import be.odisee.travelbase.dao.ActiviteitRepository;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ public class EvaluatieFiche {
     @ManyToOne
     private Activiteit activiteit;
 
+    private long evaluatieFicheId;
 
     private LocalDate dateTime;
 

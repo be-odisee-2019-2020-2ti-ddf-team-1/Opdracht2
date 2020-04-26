@@ -1,5 +1,6 @@
 package be.odisee.travelbase.dao;
 
+import be.odisee.travelbase.domain.Activiteit;
 import be.odisee.travelbase.domain.EvaluatieFiche;
 import be.odisee.travelbase.domain.Gebruiker;
 import org.springframework.data.repository.CrudRepository;

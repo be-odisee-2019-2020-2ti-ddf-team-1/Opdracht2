@@ -53,7 +53,8 @@
 
 
         <div class="form-group">
-            <label>Date: </label><input th:field="*{dateTime}" type="date"/> &nbsp;
+            <label>Date: </label>
+            <input th:field="*{dateTime}" type="date"/> &nbsp;
             <span class="validationError"
                   th:errors="*{dateTime}"
                   th:if="#{fields.hasErrors('dateTime')}">dateTimeError
@@ -62,19 +63,19 @@
 
         <div class="form-group">
             <label>Feedback: </label>
-            <textarea class="form-control" rows="3" th:field="*{feedback}"></textarea>
+            <textarea class="form-control" name="feedback" rows="3" th:field="*{feedback}"></textarea>
             <span class="validationError" th:errors="*{feedback}"
                   th:if="#{fields.hasErrors('feedback')}">feedbackError</span>
         </div>
         <div class="form-group">
             <label>Oordeel: </label>
-            <textarea class="form-control" rows="3" th:field="*{oordeel}"></textarea>
+            <textarea class="form-control" name="oordeel" rows="3" th:field="*{oordeel}"></textarea>
             <span class="validationError" th:errors="*{oordeel}"
                   th:if="#{fields.hasErrors('oordeel')}">oordeelkError</span>
         </div>
         <div class="form-group">
             <label>Beoordeling: </label>
-            <textarea class="form-control" rows="3" th:field="*{beoordeling}"></textarea>
+            <textarea class="form-control" name="beoordeling" rows="3" th:field="*{beoordeling}"></textarea>
             <span class="validationError" th:errors="*{beoordeling}" th:if="#{fields.hasErrors('beoordeling')}">beoordelingError</span>
         </div>
 
@@ -93,34 +94,20 @@
 <div class="well" th:if="${message}!=null" th:text="${message}">
     blablabla nana
 </div>
-<div class="container bla well">
-    <div class="row" th:each="evaluatieFiche: ${evaluatieFiches}"
-         th:onclick="'window.location.href = \'' + @{/travelbase/edit?id={id} (id=${evaluatieFiche.getId()}) } + '\''">
-        <div class="col-md-auto" th:text="${#temporals.format(evaluatieFiche.getDateTime(), 'dd-MM-yyyy')}"> Date</div>
-        <div class="col-md-auto" th:if="${evaluatieFiche.getActiviteit()!=null}"
-            th:text="${evaluatieFiche.getActiviteit().getNaam()}"> activiteit</div>
-    <div class="col-md-auto" th:text="${evaluatieFiche.getFeedback()}"> feedback</div>
-    <div class="col-md-auto" th:text="${evaluatieFiche.getOordeel()}"> oordeel</div>
-    <div class="col-md-auto" th:text="${evaluatieFiche.getBeoordeling()}"> beoordeling</div>
-    </div>
-</div>
-<!--<select th:field="*{evaluatieficheIds}">
-                    <option value="0">No choice</option>
-                    <option th:each="activiteit : ${activiteiten}"
-                            th:text="${activiteit.naam}"
-                            th:value="${activiteit.id}">
-                    </option>
-                </select>
-<div class="container bla well">
-    <div class="row" th:each="evaluatieFiche: ${evaluatieFiches}"
-         th:onclick="'window.location.href = \'' + @{/travelbase/edit?id={id} (id=${evaluatieFiche.getId()}) } + '\''">
-        <div class="col-md-auto" th:text="${#temporals.format(evaluatieFiche.getDateTime(), 'dd-MM-yyyy')}"> Date</div>
-        <div class="col-md-auto" th:text="${evaluatieFiche.getActiviteit().getNaam()}"> activiteit</div>
-        <div class="col-md-auto" th:text="${evaluatieFiche.getFeedback()}"> feedback</div>
-        <div class="col-md-auto" th:text="${evaluatieFiche.getOordeel()}"> oordeel</div>
-        <div class="col-md-auto" th:text="${evaluatieFiche.getBeoordeling()}"> beoordeling</div>
-    </div>
-</div>-->
 
+<div class="container bla well">
+    <div class="row"  th:name="evaluatieFicheRecord"
+         th:each="evaluatieFiche: ${evaluatieFiches}"
+         th:onclick="'window.location.href = \'' + @{/travelbase/edit?id={id} (id = ${evaluatieFiche.getId()})} + '\''">
+        <label text="EvaluatieFiche record: "></label>
+                <div class="col-md-auto" th:if="${evaluatieFiche.getActiviteit()!=null}"
+            th:text="${evaluatieFiche.getActiviteit().getNaam()}"> activiteit</div>
+        <div class="col-md-auto" th:text="${#temporals.format(evaluatieFiche.getDateTime(), 'dd-MM-yyyy')}">Date</div>
+        <div class="col-md-auto" th:text="${evaluatieFiche.getFeedback()}">Feedback</div>
+        <div class="col-md-auto" th:text="${evaluatieFiche.getOordeel()}">Oordeel</div>
+        <div class="col-md-auto" th:text="${evaluatieFiche.getBeoordeling()}">Beoordeling</div>
+    </div>
+
+</div>
 </body>
 </html>
