@@ -17,4 +17,7 @@ public interface ActiviteitRepository extends CrudRepository<Activiteit, Long> {
      * List all activiteiten, order alphabetically by name
      */
     public List<Activiteit> findAllByGebruikerOrderByNaam(Gebruiker gebruiker);
+
+    public Activiteit findById(long id);
 }
+

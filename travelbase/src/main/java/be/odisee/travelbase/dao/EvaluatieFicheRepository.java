@@ -22,7 +22,7 @@ public interface EvaluatieFicheRepository extends CrudRepository<EvaluatieFiche,
      */
     public EvaluatieFiche findFirstByGebruikerOrderByIdDesc(Gebruiker gebruiker);
 
-    public List<EvaluatieFiche> findByActiviteitNotNullAndGebruiker(Gebruiker gebruiker);
+    public List<EvaluatieFiche> findAllByGebruiker(Gebruiker gebruiker);
 
 
 }

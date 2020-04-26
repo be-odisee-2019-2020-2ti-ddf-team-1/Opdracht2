@@ -61,12 +61,12 @@ public class TravelbaseController {
                 throw new IllegalArgumentException();
             }
             // Check how many projects have been selected for this EvaluatieFiche
-            long numberNonzero = Arrays.stream(evaluatieFicheData.getEvaluatieficheIds()).filter(x -> x > 0).count();
+            /*long numberNonzero = Arrays.stream(evaluatieFicheData.getEvaluatieficheIds()).filter(x -> x > 0).count();
             // There should have been one and only one project selected, if not throw an exception
             if (numberNonzero != 1) {
                 message = "Selecteer alleen een evaluatiefiche!";
                 throw new IllegalArgumentException();
-            }
+            }*/
             // Now that the input seems to be OK, let's create a new EvaluatieFiche or update/delete an existing EvaluatieFiche
             message = travelbaseService.processEvaluatieFiche(evaluatieFicheData);
             // Prepare form for new data-EvaluatieFiche

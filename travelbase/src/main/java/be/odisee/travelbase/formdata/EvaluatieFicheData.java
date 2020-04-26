@@ -13,7 +13,7 @@ public class EvaluatieFicheData {
     @NotBlank(message="Datum moet gespecifieerd")
     private String dateTime;
 
-    private long[] evaluatieficheIds;
+    private long activiteitId;
 
     @NotBlank(message="Feedback moet ingevuld zijn")
     private String feedback;

@@ -40,7 +40,7 @@
         <div class="well">
             <div class="activiteit">
                 <label>Activiteit: </label>
-                <select th:field="*{evaluatieficheIds}">
+                <select th:field="*{activiteitId}">
                     <option value="0">No choice</option>
                     <option th:each="activiteit : ${activiteiten}"
                             th:text="${activiteit.naam}"
@@ -92,10 +92,24 @@
 <div class="well" th:if="${message}!=null" th:text="${message}">
     blablabla nana
 </div>
-<div class="well" th:if="${message}!=null" th:text="${message}">
-    blablabla nana
+<div class="container bla well">
+    <div class="row" th:each="evaluatieFiche: ${evaluatieFiches}"
+         th:onclick="'window.location.href = \'' + @{/travelbase/edit?id={id} (id=${evaluatieFiche.getId()}) } + '\''">
+        <div class="col-md-auto" th:text="${#temporals.format(evaluatieFiche.getDateTime(), 'dd-MM-yyyy')}"> Date</div>
+        <div class="col-md-auto" th:if="${evaluatieFiche.getActiviteit()!=null}"
+            th:text="${evaluatieFiche.getActiviteit().getNaam()}"> activiteit</div>
+    <div class="col-md-auto" th:text="${evaluatieFiche.getFeedback()}"> feedback</div>
+    <div class="col-md-auto" th:text="${evaluatieFiche.getOordeel()}"> oordeel</div>
+    <div class="col-md-auto" th:text="${evaluatieFiche.getBeoordeling()}"> beoordeling</div>
+    </div>
 </div>
-
+<!--<select th:field="*{evaluatieficheIds}">
+                    <option value="0">No choice</option>
+                    <option th:each="activiteit : ${activiteiten}"
+                            th:text="${activiteit.naam}"
+                            th:value="${activiteit.id}">
+                    </option>
+                </select>
 <div class="container bla well">
     <div class="row" th:each="evaluatieFiche: ${evaluatieFiches}"
          th:onclick="'window.location.href = \'' + @{/travelbase/edit?id={id} (id=${evaluatieFiche.getId()}) } + '\''">
@@ -105,7 +119,7 @@
         <div class="col-md-auto" th:text="${evaluatieFiche.getOordeel()}"> oordeel</div>
         <div class="col-md-auto" th:text="${evaluatieFiche.getBeoordeling()}"> beoordeling</div>
     </div>
-</div>
+</div>-->
 
 </body>
 </html>

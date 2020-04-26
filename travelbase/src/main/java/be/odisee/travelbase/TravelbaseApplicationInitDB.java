@@ -52,6 +52,7 @@ public class TravelbaseApplicationInitDB implements CommandLineRunner {
             EvaluatieFiche dummyEvaluatieFiche = new EvaluatieFiche();
             dummyEvaluatieFiche.setGebruiker(gebruiker);
             LocalDate now = LocalDate.now();
+
             dummyEvaluatieFiche.setDateTime(now);
             dummyEvaluatieFiche.setFeedback("This is een domme evaluatiefiche, hier komt jouw feedback");
             dummyEvaluatieFiche.setOordeel("This is een domme evaluatiefiche, hier komt jouw oordeel");
