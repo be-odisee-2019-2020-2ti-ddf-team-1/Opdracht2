@@ -92,21 +92,20 @@
 <div class="well" th:if="${message}!=null" th:text="${message}">
     blablabla nana
 </div>
-<!--
+<div class="well" th:if="${message}!=null" th:text="${message}">
+    blablabla nana
+</div>
+
 <div class="container bla well">
-
-
     <div class="row" th:each="evaluatieFiche: ${evaluatieFiches}"
          th:onclick="'window.location.href = \'' + @{/travelbase/edit?id={id} (id=${evaluatieFiche.getId()}) } + '\''">
         <div class="col-md-auto" th:text="${#temporals.format(evaluatieFiche.getDateTime(), 'dd-MM-yyyy')}"> Date</div>
-        <div class="col-md-auto" th:text="${evaluatieFiche.getEvaluatiefiche().getActiviteit().getNaam()}"> activiteit
-        </div>
-        <div class="col-md-auto" th:text="${evaluatieFiche.getEvaluatiefiche().getNaam()}"> evaluatiefiche</div>
+        <div class="col-md-auto" th:text="${evaluatieFiche.getActiviteit().getNaam()}"> activiteit</div>
         <div class="col-md-auto" th:text="${evaluatieFiche.getFeedback()}"> feedback</div>
         <div class="col-md-auto" th:text="${evaluatieFiche.getOordeel()}"> oordeel</div>
         <div class="col-md-auto" th:text="${evaluatieFiche.getBeoordeling()}"> beoordeling</div>
     </div>
 </div>
--->
+
 </body>
 </html>
