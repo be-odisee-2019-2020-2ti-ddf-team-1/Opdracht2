@@ -60,14 +60,14 @@ public class TravelbaseController {
                 message = "Correct input errors, aub";
                 throw new IllegalArgumentException();
             }
-            // Check if a project has been selected for this EvaluatieFiche
-            long selectedActivityId = evaluatieFicheData.getEvaluatieficheIds().length;
+
+            long selectedActivityId = evaluatieFicheData.getActiviteitId();
             // A project should be selected, if not throw an exception
             if (selectedActivityId <= 0) {
-                message = "Selecteer een evaluatiefiche!";
-                throw new IllegalArgumentException();
+              message = "Selecteer een evaluatiefiche!";
+              throw new IllegalArgumentException();
             }
-            evaluatieFicheData.setActiviteitId(selectedActivityId);
+
             // Now that the input seems to be OK, let's create a new EvaluatieFiche or update/delete an existing EvaluatieFiche
             message = travelbaseService.processEvaluatieFiche(evaluatieFicheData);
             // Prepare form for new data-EvaluatieFiche

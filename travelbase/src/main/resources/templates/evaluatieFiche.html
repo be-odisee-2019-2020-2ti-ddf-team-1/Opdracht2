@@ -22,15 +22,16 @@
             <li><a href="/"> Home</a></li>
             <li><a href="#">EvaluatieFiche</a></li>
         </ul>
+        <form method="POST" style="float: right" th:action="@{/logout}">
+            <button class="btn btn-danger btn-md logout" name="logout"
+                    value="Logout">Logout
+            </button>
+        </form>
     </div>
 </nav>
 
 
-<form method="POST" style="float: right" th:action="@{/logout}">
-    <button class="btn btn-danger btn-md logout" name="logout"
-            value="Logout">Logout
-    </button>
-</form>
+
 
 <div class="afbd">
     <form method="POST" th:action="@{/travelbase}" th:object="${evaluatieFicheData}">
@@ -40,7 +41,7 @@
         <div class="well">
             <div class="activiteit">
                 <label>Activiteit: </label>
-                <select th:field="*{evaluatieficheIds}">
+                <select th:field="*{activiteitId}">
                     <option value="0">No choice</option>
                     <option th:each="activiteit : ${activiteiten}"
                             th:text="${activiteit.naam}"
@@ -99,12 +100,14 @@
          th:each="evaluatieFiche: ${evaluatieFiches}"
          th:onclick="'window.location.href = \'' + @{/travelbase/edit?id={id} (id = ${evaluatieFiche.getId()})} + '\''">
         <label text="EvaluatieFiche record: "></label>
-        <div class="col-md-auto" th:text="${evaluatieFiche.getActiviteit().getNaam()}">Activiteit</div>
+                <div class="col-md-auto" th:if="${evaluatieFiche.getActiviteit()!=null}"
+            th:text="${evaluatieFiche.getActiviteit().getNaam()}"> activiteit</div>
         <div class="col-md-auto" th:text="${#temporals.format(evaluatieFiche.getDateTime(), 'dd-MM-yyyy')}">Date</div>
         <div class="col-md-auto" th:text="${evaluatieFiche.getFeedback()}">Feedback</div>
         <div class="col-md-auto" th:text="${evaluatieFiche.getOordeel()}">Oordeel</div>
         <div class="col-md-auto" th:text="${evaluatieFiche.getBeoordeling()}">Beoordeling</div>
     </div>
+
 </div>
 </body>
 </html>
