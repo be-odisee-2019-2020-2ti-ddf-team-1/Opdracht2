@@ -16,8 +16,6 @@ public class EvaluatieFicheData {
 
     private long activiteitId;
 
-    private long activiteitId;
-
     private Activiteit activiteit;
 
     @NotBlank(message="Feedback moet ingevuld zijn")

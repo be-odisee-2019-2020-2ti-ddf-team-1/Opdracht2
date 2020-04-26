@@ -35,7 +35,7 @@ public class AddToEvaluatieFicheTest extends AbstractStepDefinition{
 
     @When("^I select BXL_Atomium in the activiteit field$")
     public void i_select_BXL_Atomium_in_the_activiteit_field() throws Throwable {
-        Select dropDown = new Select(driver.findElement(By.name("evaluatieficheIds")));
+        Select dropDown = new Select(driver.findElement(By.name("activiteitId")));
         dropDown.selectByVisibleText("BXL_Atomium");
     }
 

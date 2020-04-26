@@ -31,8 +31,6 @@
 </nav>
 
 
-
-
 <div class="afbd">
     <form method="POST" th:action="@{/travelbase}" th:object="${evaluatieFicheData}">
         <h1>Formulier verslag, <span th:text="${naam}"> naam </span></h1>
@@ -96,18 +94,20 @@
 </div>
 
 <div class="container bla well">
-    <div class="row"  th:name="evaluatieFicheRecord"
-         th:each="evaluatieFiche: ${evaluatieFiches}"
+    <div class="row" th:each="evaluatieFiche: ${evaluatieFiches}"
+         th:name="evaluatieFicheRecord"
          th:onclick="'window.location.href = \'' + @{/travelbase/edit?id={id} (id = ${evaluatieFiche.getId()})} + '\''">
         <label text="EvaluatieFiche record: "></label>
-                <div class="col-md-auto" th:if="${evaluatieFiche.getActiviteit()!=null}"
-            th:text="${evaluatieFiche.getActiviteit().getNaam()}"> activiteit</div>
+        <div class="col-md-auto"
+             th:if="${evaluatieFiche.getActiviteit()!=null}"
+             th:text="${evaluatieFiche.getActiviteit().getNaam()}"> activiteit
+        </div>
         <div class="col-md-auto" th:text="${#temporals.format(evaluatieFiche.getDateTime(), 'dd-MM-yyyy')}">Date</div>
         <div class="col-md-auto" th:text="${evaluatieFiche.getFeedback()}">Feedback</div>
         <div class="col-md-auto" th:text="${evaluatieFiche.getOordeel()}">Oordeel</div>
         <div class="col-md-auto" th:text="${evaluatieFiche.getBeoordeling()}">Beoordeling</div>
     </div>
-
 </div>
+
 </body>
 </html>
