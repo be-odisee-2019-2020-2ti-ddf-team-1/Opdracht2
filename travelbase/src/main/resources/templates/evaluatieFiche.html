@@ -22,15 +22,14 @@
             <li><a href="/"> Home</a></li>
             <li><a href="#">EvaluatieFiche</a></li>
         </ul>
+        <form method="POST" style="float: right" th:action="@{/logout}">
+            <button class="btn btn-danger btn-md logout" name="logout"
+                    value="Logout">Logout
+            </button>
+        </form>
     </div>
 </nav>
 
-
-<form method="POST" style="float: right" th:action="@{/logout}">
-    <button class="btn btn-danger btn-md logout" name="logout"
-            value="Logout">Logout
-    </button>
-</form>
 
 <div class="afbd">
     <form method="POST" th:action="@{/travelbase}" th:object="${evaluatieFicheData}">
@@ -40,7 +39,7 @@
         <div class="well">
             <div class="activiteit">
                 <label>Activiteit: </label>
-                <select th:field="*{evaluatieficheIds}">
+                <select th:field="*{activiteitId}">
                     <option value="0">No choice</option>
                     <option th:each="activiteit : ${activiteiten}"
                             th:text="${activiteit.naam}"
@@ -52,7 +51,8 @@
 
 
         <div class="form-group">
-            <label>Date: </label><input th:field="*{dateTime}" type="date"/> &nbsp;
+            <label>Date: </label>
+            <input th:field="*{dateTime}" type="date"/> &nbsp;
             <span class="validationError"
                   th:errors="*{dateTime}"
                   th:if="#{fields.hasErrors('dateTime')}">dateTimeError
@@ -61,19 +61,19 @@
 
         <div class="form-group">
             <label>Feedback: </label>
-            <textarea class="form-control" rows="3" th:field="*{feedback}"></textarea>
+            <textarea class="form-control" name="feedback" rows="3" th:field="*{feedback}"></textarea>
             <span class="validationError" th:errors="*{feedback}"
                   th:if="#{fields.hasErrors('feedback')}">feedbackError</span>
         </div>
         <div class="form-group">
             <label>Oordeel: </label>
-            <textarea class="form-control" rows="3" th:field="*{oordeel}"></textarea>
+            <textarea class="form-control" name="oordeel" rows="3" th:field="*{oordeel}"></textarea>
             <span class="validationError" th:errors="*{oordeel}"
                   th:if="#{fields.hasErrors('oordeel')}">oordeelkError</span>
         </div>
         <div class="form-group">
             <label>Beoordeling: </label>
-            <textarea class="form-control" rows="3" th:field="*{beoordeling}"></textarea>
+            <textarea class="form-control" name="beoordeling" rows="3" th:field="*{beoordeling}"></textarea>
             <span class="validationError" th:errors="*{beoordeling}" th:if="#{fields.hasErrors('beoordeling')}">beoordelingError</span>
         </div>
 
@@ -92,18 +92,20 @@
 <div class="well" th:if="${message}!=null" th:text="${message}">
     blablabla nana
 </div>
-<div class="well" th:if="${message}!=null" th:text="${message}">
-    blablabla nana
-</div>
 
 <div class="container bla well">
     <div class="row" th:each="evaluatieFiche: ${evaluatieFiches}"
-         th:onclick="'window.location.href = \'' + @{/travelbase/edit?id={id} (id=${evaluatieFiche.getId()}) } + '\''">
-        <div class="col-md-auto" th:text="${#temporals.format(evaluatieFiche.getDateTime(), 'dd-MM-yyyy')}"> Date</div>
-        <div class="col-md-auto" th:text="${evaluatieFiche.getActiviteit().getNaam()}"> activiteit</div>
-        <div class="col-md-auto" th:text="${evaluatieFiche.getFeedback()}"> feedback</div>
-        <div class="col-md-auto" th:text="${evaluatieFiche.getOordeel()}"> oordeel</div>
-        <div class="col-md-auto" th:text="${evaluatieFiche.getBeoordeling()}"> beoordeling</div>
+         th:name="evaluatieFicheRecord"
+         th:onclick="'window.location.href = \'' + @{/travelbase/edit?id={id} (id = ${evaluatieFiche.getId()})} + '\''">
+        <label text="EvaluatieFiche record: "></label>
+        <div class="col-md-auto"
+             th:if="${evaluatieFiche.getActiviteit()!=null}"
+             th:text="${evaluatieFiche.getActiviteit().getNaam()}"> activiteit
+        </div>
+        <div class="col-md-auto" th:text="${#temporals.format(evaluatieFiche.getDateTime(), 'dd-MM-yyyy')}">Date</div>
+        <div class="col-md-auto" th:text="${evaluatieFiche.getFeedback()}">Feedback</div>
+        <div class="col-md-auto" th:text="${evaluatieFiche.getOordeel()}">Oordeel</div>
+        <div class="col-md-auto" th:text="${evaluatieFiche.getBeoordeling()}">Beoordeling</div>
     </div>
 </div>
 

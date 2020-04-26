@@ -47,11 +47,12 @@ public class TravelbaseApplicationInitDB implements CommandLineRunner {
         for (Gebruiker gebruiker : gebruikers) {
             // gebruiker must be saved for it to have an id
             gebruikerRepository.save(gebruiker);
-
+/*
             // There must be 1 dummy evaluatiefiche for each gebruiker to save the next startTimeFrom
             EvaluatieFiche dummyEvaluatieFiche = new EvaluatieFiche();
             dummyEvaluatieFiche.setGebruiker(gebruiker);
             LocalDate now = LocalDate.now();
+
             dummyEvaluatieFiche.setDateTime(now);
             dummyEvaluatieFiche.setFeedback("This is een domme evaluatiefiche, hier komt jouw feedback");
             dummyEvaluatieFiche.setOordeel("This is een domme evaluatiefiche, hier komt jouw oordeel");
@@ -59,7 +60,7 @@ public class TravelbaseApplicationInitDB implements CommandLineRunner {
             evaluatieFicheRepository.save(dummyEvaluatieFiche);
 
             gebruiker.setDummyEvaluatieFiche(dummyEvaluatieFiche);
-            gebruikerRepository.save(gebruiker);
+            gebruikerRepository.save(gebruiker);*/
         }
 
         for (Gebruiker gebruiker : gebruikers) {
