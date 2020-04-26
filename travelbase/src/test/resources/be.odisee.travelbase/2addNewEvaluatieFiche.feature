@@ -1,20 +1,8 @@
-Feature: Go To Entry
-
-It should be possible to go to the entry page starting from the home page.
-
-Scenario:
-Given I am on the home page
-When I enter "user" in the username field
-And I enter "user" in the password field
-And I press on the Entry button
-  Then I should be on the Entry page
-
-
-
+Feature: add new EvaluatieFiche
 
   Scenario: Add one EvaluatieFiche
-    Given I am on the Entry page where I can add a new Entry
-    When I select EF_BXL_Atomium in the BXL_Atomium field
+    Given I am on the EvaluatieFiche page
+    When I select BXL_Atomium in the activiteit field
     And I select the date of today in the Date field
     And I enter "dit is feedback" in the Feedback field
     And I enter "dit is een oordeel" in the Oordeel field
