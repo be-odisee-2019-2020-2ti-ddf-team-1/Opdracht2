@@ -40,6 +40,8 @@ public class AddToEvaluatieFicheTest extends AbstractStepDefinition{
     @And("^I select the date of today in the Date field$")
     public void i_select_the_date_of_today_in_the_Date_field() throws Throwable {
         driver.findElement(By.name("dateTime")).click();
+        driver.findElement(By.name("dateTime")).sendKeys("04242020");
+        driver.findElement(By.name("dateTime")).sendKeys(Keys.ENTER);
     }
 
     @And("^I enter \"dit is feedback\" in the Feedback field$")

@@ -37,7 +37,15 @@ public class TravelbaseServiceImpl implements TravelbaseService {
     @Override
     public List<EvaluatieFiche> getEvaluatieFiches() {
 
-        return evaluatieFicheRepository.findByActiviteitNotNullAndGebruiker(findAuthenticatedUser());
+        return evaluatieFicheRepository.findAllActiviteitByGebruiker(findAuthenticatedUser());
+    }
+
+    public Activiteit getActiviteitByEvaluatieFicheId(long l)
+    {
+        int i = (int)l;
+        Activiteit activiteit = getActiviteiten().get(i);
+
+        return activiteit;
     }
 
     /**
@@ -61,18 +69,21 @@ public class TravelbaseServiceImpl implements TravelbaseService {
      */
     private EvaluatieFicheData prepareEvaluatieFicheData(EvaluatieFiche theEvaluatieFiche) {
 
-        EvaluatieFicheData evaluatieFicheData = new EvaluatieFicheData();
+        if(theEvaluatieFiche != null) {
+            EvaluatieFicheData evaluatieFicheData = new EvaluatieFicheData();
 
-        List<Activiteit> activiteiten = getActiviteiten();
+            List<Activiteit> activiteiten = getActiviteiten();
 
-        // Pick up the other last EvaluatieFiche data and propose them in the form
-        evaluatieFicheData.setDateTime(theEvaluatieFiche.getDateTime().toString());
+            // Pick up the other last EvaluatieFiche data and propose them in the form
+            evaluatieFicheData.setDateTime(theEvaluatieFiche.getDateTime().toString());
 
 
-        evaluatieFicheData.setFeedback(theEvaluatieFiche.getFeedback());
-        evaluatieFicheData.setOordeel(theEvaluatieFiche.getOordeel());
-        evaluatieFicheData.setBeoordeling(theEvaluatieFiche.getBeoordeling());
-        return evaluatieFicheData;
+            evaluatieFicheData.setFeedback(theEvaluatieFiche.getFeedback());
+            evaluatieFicheData.setOordeel(theEvaluatieFiche.getOordeel());
+            evaluatieFicheData.setBeoordeling(theEvaluatieFiche.getBeoordeling());
+            return evaluatieFicheData;
+        }
+        return new EvaluatieFicheData();
     }
 
     @Override
@@ -84,6 +95,11 @@ public class TravelbaseServiceImpl implements TravelbaseService {
         else evaluatieFiche = evaluatieFicheRepository.findById(evaluatieFicheData.getId());
 
         if (evaluatieFiche.getGebruiker() == null) evaluatieFiche.setGebruiker(findAuthenticatedUser());
+
+        int activiteitId = (int)evaluatieFicheData.getActiviteitId();
+
+        Activiteit activiteit = getActiviteiten().get(activiteitId);
+        evaluatieFiche.setActiviteit(activiteit);
 
         LocalDate dateTime = LocalDate.parse(evaluatieFicheData.getDateTime());
         evaluatieFiche.setDateTime(dateTime);

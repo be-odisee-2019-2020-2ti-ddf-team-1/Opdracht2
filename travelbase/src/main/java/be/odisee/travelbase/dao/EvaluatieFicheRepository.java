@@ -1,5 +1,6 @@
 package be.odisee.travelbase.dao;
 
+import be.odisee.travelbase.domain.Activiteit;
 import be.odisee.travelbase.domain.EvaluatieFiche;
 import be.odisee.travelbase.domain.Gebruiker;
 import org.springframework.data.repository.CrudRepository;
@@ -22,7 +23,8 @@ public interface EvaluatieFicheRepository extends CrudRepository<EvaluatieFiche,
      */
     public EvaluatieFiche findFirstByGebruikerOrderByIdDesc(Gebruiker gebruiker);
 
-    public List<EvaluatieFiche> findByActiviteitNotNullAndGebruiker(Gebruiker gebruiker);
+    public List<EvaluatieFiche> findAllActiviteitByGebruiker(Gebruiker gebruiker);
+
 
 
 }
