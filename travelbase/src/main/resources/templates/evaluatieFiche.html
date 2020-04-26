@@ -22,15 +22,16 @@
             <li><a href="/"> Home</a></li>
             <li><a href="#">EvaluatieFiche</a></li>
         </ul>
+        <form method="POST" style="float: right" th:action="@{/logout}">
+            <button class="btn btn-danger btn-md logout" name="logout"
+                    value="Logout">Logout
+            </button>
+        </form>
     </div>
 </nav>
 
 
-<form method="POST" style="float: right" th:action="@{/logout}">
-    <button class="btn btn-danger btn-md logout" name="logout"
-            value="Logout">Logout
-    </button>
-</form>
+
 
 <div class="afbd">
     <form method="POST" th:action="@{/travelbase}" th:object="${evaluatieFicheData}">
