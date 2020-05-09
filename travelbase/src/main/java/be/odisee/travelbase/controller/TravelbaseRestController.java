@@ -34,8 +34,15 @@ public class TravelbaseRestController {
     }
 */
 
+
+    @GetMapping("/activiteiten")
+    public List<Activiteit> getActiviteiten()
+    {
+        return (List<Activiteit>)activiteitRepository.findAll(); // moet een service worden
+    }
+
     @GetMapping("/activiteit/{id}")
     public Activiteit getActiviteitById(@PathVariable("id") Long id){
-        return activiteitRepository.findById(id).get();
+        return activiteitRepository.findById(id).get(); // moet een service worden
     }
 }
