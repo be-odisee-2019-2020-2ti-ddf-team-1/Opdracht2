@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path="/travelbaserest", produces = "application/json")
-@CrossOrigin(origins="http://localhost:8443", maxAge = 3600, allowCredentials = "true")
+@CrossOrigin(origins="http://localhost:8444", maxAge = 3600, allowCredentials = "true")
 public class TravelbaseRestController {
 
     @Autowired
