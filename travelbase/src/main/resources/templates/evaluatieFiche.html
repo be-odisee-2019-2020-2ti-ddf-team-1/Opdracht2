@@ -61,19 +61,19 @@
 
         <div class="form-group">
             <label>Feedback: </label>
-            <textarea class="form-control" name="feedback" rows="3" th:field="*{feedback}"></textarea>
+            <textarea class="form-control" name="feedback" rows="3" placeholder="Hier, komt de feedback" th:field="*{feedback}"></textarea>
             <span class="validationError" th:errors="*{feedback}"
                   th:if="#{fields.hasErrors('feedback')}">feedbackError</span>
         </div>
         <div class="form-group">
             <label>Oordeel: </label>
-            <textarea class="form-control" name="oordeel" rows="3" th:field="*{oordeel}"></textarea>
+            <textarea class="form-control" name="oordeel" rows="3" placeholder="Zeer goed" th:field="*{oordeel}"></textarea>
             <span class="validationError" th:errors="*{oordeel}"
                   th:if="#{fields.hasErrors('oordeel')}">oordeelkError</span>
         </div>
         <div class="form-group">
             <label>Beoordeling: </label>
-            <textarea class="form-control" name="beoordeling" rows="3" th:field="*{beoordeling}"></textarea>
+            <textarea class="form-control" name="beoordeling" rows="3" placeholder="20/20" th:field="*{beoordeling}"></textarea>
             <span class="validationError" th:errors="*{beoordeling}" th:if="#{fields.hasErrors('beoordeling')}">beoordelingError</span>
         </div>
 
@@ -91,6 +91,9 @@
 
 <div class="well" th:if="${message}!=null" th:text="${message}">
     blablabla nana
+</div>
+<div class="well" th:if="${message}!=null" th:text="${message}">
+    blablabla nana tata
 </div>
 
 <div class="container bla well">
