@@ -38,7 +38,9 @@ public class TravelbaseApplicationInitDB implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         List<Gebruiker> gebruikers = Arrays.asList(
-                new Gebruiker(1, "An Bel", "verkenner", "user",
+                new Gebruiker(1, "An Bel", "VERKENNER", "user",
+                        "{bcrypt}$2a$10$rXz3VKEjxLd9KTYxCtZQHu74DIq4Ag8NYU/ApfXa7qD6TGdp00WPa"),
+                new Gebruiker(0, "John Pakketmaker", "PAKKETMAKER", "pakketuser",
                         "{bcrypt}$2a$10$rXz3VKEjxLd9KTYxCtZQHu74DIq4Ag8NYU/ApfXa7qD6TGdp00WPa")
 
 
