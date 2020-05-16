@@ -30,6 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/images/**").permitAll()
                 .antMatchers("/css/**").permitAll()
+                .antMatchers("/travelbaserest/**").permitAll()
+                .antMatchers("/travelbaserest/activiteiten").permitAll()
                 .antMatchers("/admin", "/h2/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
