@@ -38,9 +38,9 @@ public class TravelbaseApplicationInitDB implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         List<Gebruiker> gebruikers = Arrays.asList(
-                new Gebruiker(1, "An Bel", "VERKENNER", "user",
-                        "{bcrypt}$2a$10$rXz3VKEjxLd9KTYxCtZQHu74DIq4Ag8NYU/ApfXa7qD6TGdp00WPa"),
                 new Gebruiker(0, "John Pakketmaker", "PAKKETMAKER", "pakketuser",
+                        "{bcrypt}$2a$10$rXz3VKEjxLd9KTYxCtZQHu74DIq4Ag8NYU/ApfXa7qD6TGdp00WPa"),
+                new Gebruiker(0, "An Bel", "VERKENNER", "user",
                         "{bcrypt}$2a$10$rXz3VKEjxLd9KTYxCtZQHu74DIq4Ag8NYU/ApfXa7qD6TGdp00WPa")
 
 
@@ -54,13 +54,12 @@ public class TravelbaseApplicationInitDB implements CommandLineRunner {
 
         for (Gebruiker gebruiker : gebruikers) {
             List<Activiteit> activiteiten = Arrays.asList(
-                    new Activiteit(1, "BXL_Atomium", gebruiker),
-                    new Activiteit(2, "BXL_BusSightSeeing", gebruiker),
-                    new Activiteit(3, "BXL_MiniEurope", gebruiker),
-                    new Activiteit(4, "BXL_BelgianFood", gebruiker),
-                    new Activiteit(5, "BXL_Tour", gebruiker),
-                    new Activiteit(6, "BXL_ChocolateFactory", gebruiker)
-
+                    new Activiteit(1, "Atomium", gebruiker),
+                    new Activiteit(2, "BusSightSeeing", gebruiker),
+                    new Activiteit(3, "MiniEurope", gebruiker),
+                    new Activiteit(4, "BelgianFood", gebruiker),
+                    new Activiteit(5, "Tour", gebruiker),
+                    new Activiteit(6, "ChocolateFactory", gebruiker)
             );
 
             for (Activiteit activiteit : activiteiten) {
